@@ -42,26 +42,31 @@ function createError(errorMessage) {
 //fonction pour vérifier les données en entrée
 function parseEntryBody(requestBody) {
   let {
-    deadline,
-    achieved,
-    author,
-    title,
-    details
+    nom,
+    urlSite,
+    ville,
+    region,
+    idMaster,
+    urlMaster,
+    nomParcours,
+    anneesParcours,
+    alternancePossible,
+    enDistanciel,
+    urlParcours
   } = requestBody;
-  title = title ? title.toString() : null;
-  author = author ? author.toString() : null;
-  details = details ? details.toString() : null;
-  deadline = deadline ? new Date(deadline) : null;
-  achieved = achieved ? new Date(achieved) : null;
-  if (!title || !author || isNaN(deadline) || isNaN(achieved)) {
-    throw new Error('Mauvais format');
+  nom = nom ? nom.toString() : null;
+  urlSite = urlSite ? urlSite.toString() : null;
+  ville = ville ? ville.toString() : null;
+  region = region ? region.toString() : null;
+  idMaster = idMaster ? idMaster.toString() : null; //faire une vérification sur l'id, qui doit exister dans les documents "masters"
+  
+
+  if (!nom || !urlSite ) {
+    throw new Error('Informations manquantes ou mauvais format');
   }
   return {
-    deadline,
-    achieved,
-    author,
-    title,
-    details
+    nom,
+    
   };
 }
 
@@ -174,9 +179,9 @@ async function updateEtablissement(id, req) {
   const {
     deadline,
     achieved,
-    author,
-    title,
-    details
+    urlSite,
+    nom,
+    region
   } = parseEntryBody(req.body);
 
   const objectId = new ObjectId(id);
@@ -189,9 +194,9 @@ async function updateEtablissement(id, req) {
       $set: {
         deadline: deadline,
         achieved: achieved,
-        author: author,
-        title: title,
-        details: details
+        urlSite: urlSite,
+        nom: nom,
+        region: region
       }
     });
 
