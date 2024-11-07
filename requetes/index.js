@@ -105,7 +105,7 @@ async function findEtablissementsById(id) {
 
   const result = await client
     .db("local")
-    .collection("Etablissement")
+    .collection("etablissement")
     .find({
       _id: objectId
     }).toArray();
@@ -113,6 +113,36 @@ async function findEtablissementsById(id) {
   return result;
 
 };
+
+//requete qui récupère un master avec l'id
+app.get('/etablissements/:entryId', (req, res) => {
+  const entryId = req.params.entryId;
+
+  try {
+    findMasterById(entryId).then(entries => res.json(entries));
+  } catch (e) {
+    res.status(404).json(createError('Entrée introuvable'));
+  }
+});
+
+//fonction qui récupère un master en fonction de l'id en paramètre
+async function findMasterById(id) {
+
+  const objectId = new ObjectId(id);
+
+  const result = await client
+    .db("local")
+    .collection("masters")
+    .find({
+      _id: objectId
+    }).toArray();
+
+  return result;
+
+};
+
+
+/*--------------------------------------PUT------------------------------------- */
 
 /*--------------------------------------POST-----------------------------------
 
