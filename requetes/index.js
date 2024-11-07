@@ -38,8 +38,8 @@ function createError(errorMessage) {
   };
 }
 
-
-//fonction pour vérifier les données en entrée
+/*
+//fonction pour vérifier les données en entrée -------- EN CHANTIER
 function parseEntryBody(requestBody) {
   let {
     nom,
@@ -58,7 +58,6 @@ function parseEntryBody(requestBody) {
   urlSite = urlSite ? urlSite.toString() : null;
   ville = ville ? ville.toString() : null;
   region = region ? region.toString() : null;
-  idMaster = idMaster ? idMaster.toString() : null; //faire une vérification sur l'id, qui doit exister dans les documents "masters"
   
 
   if (!nom || !urlSite ) {
@@ -69,13 +68,16 @@ function parseEntryBody(requestBody) {
     
   };
 }
+*/
 
-////////////////GET//////////////////
-//fonction qui récupère tous les etablissements
+/*-----------------------------------------GET------------------------------------------*/
+
+//requete qui récupère tous les etablissements
 app.get('/etablissements', (req, res) => {
   findEtablissements().then(entries => res.json(entries));
 });
 
+//fonction qui récupère tous les établissements
 async function findEtablissements() {
   const result = await client
     .db("local")
@@ -85,7 +87,34 @@ async function findEtablissements() {
   return (result);
 }
 
-////////////////POST//////////////////
+//requete qui récupère un établissement avec l'id
+app.get('/etablissements/:entryId', (req, res) => {
+  const entryId = req.params.entryId;
+
+  try {
+    findEtablissementsById(entryId).then(entries => res.json(entries));
+  } catch (e) {
+    res.status(404).json(createError('Entrée introuvable'));
+  }
+});
+
+//fonction qui récupère l'établissement en fonction de l'id en paramètre
+async function findEtablissementsById(id) {
+
+  const objectId = new ObjectId(id);
+
+  const result = await client
+    .db("local")
+    .collection("Etablissement")
+    .find({
+      _id: objectId
+    }).toArray();
+
+  return result;
+
+};
+
+/*--------------------------------------POST-----------------------------------
 
 app.post('/etablissements', (req, res) => {
   try {
@@ -134,97 +163,4 @@ async function insertEtablissement(newEtablissement) {
 
   return result;
 }
-
-/////////////GET BY ID///////////////
-
-app.get('/etablissements/:entryId', (req, res) => {
-  const entryId = req.params.entryId;
-
-  try {
-    findEtablissementsById(entryId).then(entries => res.json(entries));
-  } catch (e) {
-    res.status(404).json(createError('Entrée introuvable'));
-  }
-});
-
-async function findEtablissementsById(id) {
-
-  const objectId = new ObjectId(id);
-
-  const result = await client
-    .db("local")
-    .collection("Etablissement")
-    .find({
-      _id: objectId
-    }).toArray();
-
-  return result;
-
-};
-
-/////////////PUT///////////////
-
-app.put('/etablissements/:entryId', (req, res) => {
-  const entryId = req.params.entryId;
-
-  try {
-    updateEtablissement(entryId, req).then(entries => res.json(entries))
-  } catch (e) {
-    res.status(404).json(createError('Entrée introuvable'));
-  }
-});
-
-async function updateEtablissement(id, req) {
-
-  const {
-    deadline,
-    achieved,
-    urlSite,
-    nom,
-    region
-  } = parseEntryBody(req.body);
-
-  const objectId = new ObjectId(id);
-  const result = await client
-    .db("local")
-    .collection("Etablissement")
-    .updateOne({
-      _id: objectId
-    }, {
-      $set: {
-        deadline: deadline,
-        achieved: achieved,
-        urlSite: urlSite,
-        nom: nom,
-        region: region
-      }
-    });
-
-  return result;
-}
-
-
-/////////////DELETE///////////////
-
-app.delete('/etablissements/:entryId', (req, res) => {
-  const entryId = req.params.entryId;
-
-  try {
-    deleteEtablissement(entryId).then(entries => res.json(entries));
-    res.status(204).end();
-  } catch (e) {
-    res.status(404).json(createError('Entrée introuvable'));
-  }
-
-});
-
-async function deleteEtablissement(id) {
-  const result = await client
-    .db("local")
-    .collection("Etablissement")
-    .deleteOne({
-      _id: new ObjectId(id)
-    });
-
-  return result;
-}
+*/
