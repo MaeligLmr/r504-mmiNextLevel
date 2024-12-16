@@ -14,7 +14,7 @@ function Formation({ formation }){
                     {formationList.map((formation) => <li>{formation.parcours.nomParcours}</li>)}
                 </ul>
                 <button type='button' onClick={() => setShowMore(!isShowMore)} >
-                    {isShowMore ? text : text.slice(0, 150)}
+                    {isShowMore && formation.url }
                 </button>
             </div>
         </>
