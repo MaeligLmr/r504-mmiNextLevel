@@ -1,24 +1,48 @@
 import logo from './logo.svg';
-import './App.css';
+import './index.css'; // Import de Tailwind CSS
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { loadFormations } from './features/formation/formationAsyncAction';
+import Accueil from './components/Accueil';
+import { selectErrorLoad, selectFormations, selectLoading } from './features/formation/formationSelector';
+import FormationList from './components/FormationList';
+
 
 function App() {
+  const dispatch = useDispatch();
+  const loading = useSelector(selectLoading);
+  const formations = useSelector(selectFormations);
+  const errors = useSelector(selectErrorLoad);
+  useEffect(() => {
+    return () => {
+      dispatch(loadFormations());
+    };
+  }, [dispatch]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to RELOAD.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <header>
+      <h1>MMI NEXT LEVEL :)</h1>
+    </header>
+    <main>
+    <Accueil></Accueil>
+    {error && (
+          <Alert severity="error" sx={{ mb: 2, mx: 'auto', width: '80%' }}>
+            {error}
+          </Alert>
+        )}
+        {loading ? (
+          <p>Chargement des données </p>
+        )
+          :
+          (
+            <>
+            
+              <FormationList ></FormationList>
+            </>
+          )
+        }
+    </main>
+    </>
   );
 }
 

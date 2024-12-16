@@ -21,4 +21,4 @@ function Formation({ formation }){
     )
 };
 
-export default VolunteersItem;
+export default Formation;

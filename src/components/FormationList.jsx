@@ -15,3 +15,4 @@ function FormationList() {
         </>
     )
 }
+export default FormationList;
