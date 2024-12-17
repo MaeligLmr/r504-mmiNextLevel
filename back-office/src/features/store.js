@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import reducer from './slice';
 
 const store = configureStore({reducer: {
-    univ: reducer, 
+    reducer: reducer, 
   },})
 
 export default store;

@@ -1,9 +1,8 @@
 import { useEffect } from "react";
 import { load } from "./features/asyncAction";
-
-const { useDispatch, useSelector } = require("react-redux");
-const { selectLoading } = require("./features/selector");
-const { default: UnivList } = require("./components/UnivList");
+import { useDispatch, useSelector } from "react-redux";
+import UnivList from "./components/UnivList";
+import {selectLoading} from './features/selector';
 
 function App() {
     const dispatch = useDispatch();
@@ -16,10 +15,12 @@ function App() {
 
     return(
         <main>
+            <p>bndioboiesn</p>
         {
             loading
             ?
             <p>Chargement</p>
+            
             :
             <UnivList/>
         }
