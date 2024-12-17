@@ -9,6 +9,12 @@ let client; //on initialise le client ici pour que toutes les fonctions y aient 
 const app = express();
 app.use(bodyParser.json());
 app.use(express.static('public'));
+app.use((req, res, next) => {
+  res.append('Access-Control-Allow-Origin', ['*']);
+  res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.append('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
 
 async function main() {
   const uri = "mongodb://127.0.0.1";
@@ -87,7 +93,7 @@ function formatParcours(tabParcours) {
 /*-----------------------------------------GET------------------------------------------*/
 
 //requete qui récupère tous les etablissements
-app.get('/etablissements', (req, res) => {
+app.get('/api/etablissements', (req, res) => {
   findEtablissements().then(entries => res.json(entries));
 });
 
@@ -101,8 +107,23 @@ async function findEtablissements() {
   return (result);
 }
 
+//requete qui récupère tous les masters
+app.get('/api/masters', (req, res) => {
+  findMasters().then(entries => res.json(entries));
+});
+
+//fonction qui récupère tous les établissements
+async function findMasters() {
+  const result = await client
+    .db("test")
+    .collection("masters")
+    .find().toArray();
+
+  return (result);
+}
+
 //requete qui récupère un établissement avec l'id
-app.get('/etablissements/:entryId', (req, res) => {
+app.get('/api/etablissements/:entryId', (req, res) => {
   const entryId = req.params.entryId;
 
   try {
@@ -130,7 +151,7 @@ async function findEtablissementsById(id) {
 };
 
 //requete qui récupère un master avec l'id
-app.get('/masters/:entryId', (req, res) => {
+app.get('/api/masters/:entryId', (req, res) => {
   const entryId = req.params.entryId;
 
   try {
