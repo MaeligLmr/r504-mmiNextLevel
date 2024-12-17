@@ -1,6 +1,4 @@
-import {
-    createSlice
-} from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { load } from './asyncAction';
 
 const slice = createSlice({
@@ -8,11 +6,17 @@ const slice = createSlice({
     initialState: {
         univ: [],
         loading: false,
-        currentId: null
+        idUnivEdited: null
     },
     reducers: {
-
-
+        startEdit(state, action){
+            state.addingFilm = true;
+            state.idUnivEdited = action.payload;
+       },
+       stopEdit(state){
+            state.addingFilm = false;
+            state.idUnivEdited = null;
+       }
     },
     errors: {
         apiErrorLoad: null,
@@ -32,5 +36,5 @@ const slice = createSlice({
     }
 })
 
-
+export const { startEdit, stopEdit } = slice.actions;
 export default slice.reducer;
