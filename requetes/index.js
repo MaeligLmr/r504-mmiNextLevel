@@ -87,7 +87,7 @@ function formatParcours(tabParcours) {
 /*-----------------------------------------GET------------------------------------------*/
 
 //requete qui récupère tous les etablissements
-app.get('/etablissements', (req, res) => {
+app.get('/api/etablissements', (req, res) => {
   findEtablissements().then(entries => res.json(entries));
 });
 
