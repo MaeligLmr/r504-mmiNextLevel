@@ -70,6 +70,20 @@ function parseEntryBody(requestBody) {
 }
 */
 
+
+//fonction qui transforme les données en entrée en un tableau d'objets parcours
+function formatParcours(tabParcours) {
+  let tabObjetsParcours = [];
+
+  for (let i = 0; i < tabParcours.length; i++) {
+    tabObjetsParcours[i] += {
+      nomParcours: tabParcours[0].nomParcours
+    };
+  }
+
+  return tabObjetsParcours;
+}
+
 /*-----------------------------------------GET------------------------------------------*/
 
 //requete qui récupère tous les etablissements
@@ -80,7 +94,7 @@ app.get('/etablissements', (req, res) => {
 //fonction qui récupère tous les établissements
 async function findEtablissements() {
   const result = await client
-    .db("local")
+    .db("test")
     .collection("etablissements")
     .find().toArray();
 
@@ -104,18 +118,19 @@ async function findEtablissementsById(id) {
   const objectId = new ObjectId(id);
 
   const result = await client
-    .db("local")
-    .collection("etablissement")
+    .db("test")
+    .collection("etablissements")
     .find({
       _id: objectId
     }).toArray();
 
+  console.log(id);
   return result;
 
 };
 
 //requete qui récupère un master avec l'id
-app.get('/etablissements/:entryId', (req, res) => {
+app.get('/masters/:entryId', (req, res) => {
   const entryId = req.params.entryId;
 
   try {
@@ -131,7 +146,7 @@ async function findMasterById(id) {
   const objectId = new ObjectId(id);
 
   const result = await client
-    .db("local")
+    .db("test")
     .collection("masters")
     .find({
       _id: objectId
@@ -143,6 +158,76 @@ async function findMasterById(id) {
 
 
 /*--------------------------------------PUT------------------------------------- */
+
+//requete pour modifier le document d'un établissement
+//pour ajouter une formation à une université
+app.put('/update/etablissement', async (req, res) => {
+
+  try {
+    //const mastersId = await getMastersID(req.body.idEtab); //on recupère les id des masters (=mention) de l'établissement concerné
+    //console.log(mastersId[0]._id);
+    //mastersId[0]._id correspond au tableau contenu dans la réponse de getMastersID
+    updateEtablissement(req.body, mastersId[0]._id).then(entries => res.json(entries));
+
+  } catch (e) {
+    res.status(404).json(createError('Entrée introuvable'));
+  }
+
+});
+
+async function updateEtablissement(datas, mastersId) {
+  //datas correspond aux données du formulaire
+  //mastersId correspond au tableau des id de l'établissement
+
+  /*const {
+    
+  } = parseEntryBody(req.body);*/ //vérification des données en entrée à faire plus tard
+
+  // const objectId = new ObjectId(id);
+  // const result = await client
+  //   .db("test")
+  //   .collection("etablissements")
+  //   .updateOne({
+  //     _id: objectId
+  //   }, {
+  //     $set: {
+
+  //     }
+  //   });
+  const result = true;
+
+  return result;
+}
+
+app.get('/idMasters', async (req, res) => {
+  try {
+    getMastersID(req.body.idEtab).then(entries => res.json(entries));
+  } catch (er) {
+
+  }
+})
+
+//récupère les id des masters disponibles dans un établissement
+async function getMastersID(idEtab) {
+  etablissement = new ObjectId(idEtab);
+
+  const result = await client
+    .db('test')
+    .collection('etablissements')
+    .aggregate([{
+        $match: {
+          _id: etablissement //cherche l'établissement avec l'id passé en parametre
+        }
+      },
+      {
+        $group: {
+          _id: "$masters._idMaster" //groupe par l'id des masters
+        }
+      }
+    ]).toArray();
+
+  return result; //retourne un tableau du type : [{_id: ['id1', 'id2','id3']}]
+}
 
 /*--------------------------------------POST-----------------------------------
 
@@ -187,10 +272,12 @@ async function insertEtablissement(newEtablissement) {
   }
 
   const result = await client
-    .db("local")
+    .db("test")
     .collection("Etablissement")
     .insertOne(etabToInsert);
 
   return result;
 }
 */
+
+app.listen(5000);
