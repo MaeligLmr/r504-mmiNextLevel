@@ -11,8 +11,7 @@ import FormationList from './components/FormationList';
 function App() {
   const dispatch = useDispatch();
   const loading = useSelector(selectLoading);
-  const formations = useSelector(selectFormations);
-  const errors = useSelector(selectErrorLoad);
+  const error = useSelector(selectErrorLoad);
   useEffect(() => {
     return () => {
       dispatch(loadFormations());
