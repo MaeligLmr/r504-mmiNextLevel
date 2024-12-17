@@ -6,15 +6,16 @@ const slice = createSlice({
     initialState: {
         univ: [],
         loading: false,
+        editing: false,
         idUnivEdited: null
     },
     reducers: {
         startEdit(state, action){
-            state.addingFilm = true;
+            state.editing = true;
             state.idUnivEdited = action.payload;
        },
        stopEdit(state){
-            state.addingFilm = false;
+            state.editing = false;
             state.idUnivEdited = null;
        }
     },

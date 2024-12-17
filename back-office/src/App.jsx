@@ -2,11 +2,14 @@ import { useEffect } from "react";
 import { load } from "./features/asyncAction";
 import { useDispatch, useSelector } from "react-redux";
 import UnivList from "./components/UnivList";
-import {selectLoading} from './features/selector';
+import {selectEdit, selectLoading} from './features/selector';
+import { Typography } from "@mui/material";
+import UnivForm from "./components/UnivForm";
 
 function App() {
     const dispatch = useDispatch();
     const loading = useSelector(selectLoading);
+    const editing = useSelector(selectEdit);
 
     useEffect(()=>
     {
@@ -15,6 +18,7 @@ function App() {
 
     return(
         <main>
+            <Typography variant="h2" component='h1' sx={{ mx:'auto', mb:'1.25rem'}}>Gestion des universités</Typography>
         {
             loading
             ?
@@ -22,6 +26,11 @@ function App() {
             
             :
             <UnivList/>
+        }
+        {
+            editing
+            &&
+            <UnivForm/>
         }
         </main>
         

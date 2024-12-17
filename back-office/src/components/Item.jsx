@@ -11,9 +11,9 @@ function Item({ univ }) {
     };
 
     return (
-        <ListItem sx={{ display: 'flex', justifyContent: 'space-between', borderBottom: "0.5rem pink solid" }}>
-            <Typography sx={{ fontSize: "1rem", fontWeight: "bold" }}>{univ.nom}</Typography>
-            <Button aria-label="Modifier" onClick={handleEdit}>Modifier</Button>
+        <ListItem sx={{ display: 'flex', justifyContent: 'space-between', borderBottom: "2px grey solid" }}>
+            <Typography sx={{ fontSize: "1rem" }}>{univ.nom}</Typography>
+            <Button aria-label="Modifier" variant='contained' color="info" onClick={handleEdit}>Modifier</Button>
         </ListItem>
     )
 }
