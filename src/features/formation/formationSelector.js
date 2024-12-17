@@ -15,5 +15,5 @@ export const selectInitialFormValues = (state)=>{
         return null
     }else return state.formations.formations.find((formation)=> formation.id === state.formations.currentId)
 }
+export const selectErrorLoad = (state) => state.films.errors.apiErrorLoad;
 
-//les filtres seront ici :)
