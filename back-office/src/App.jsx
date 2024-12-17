@@ -15,7 +15,6 @@ function App() {
 
     return(
         <main>
-            <p>bndioboiesn</p>
         {
             loading
             ?
