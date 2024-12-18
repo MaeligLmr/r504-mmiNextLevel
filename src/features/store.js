@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import formationsReducer from './formation/formationSlice';
+import rootReducer from "./rootReducer";
 
 const store = configureStore({reducer: {
-    formations: formationsReducer, 
+    reducer: rootReducer, 
   },})
 
 export default store;
