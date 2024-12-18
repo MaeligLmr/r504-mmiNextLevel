@@ -1,10 +1,16 @@
 import { Button, Dialog, DialogContent, DialogTitle, Grid2, TextField } from '@mui/material';
 import { Form, Field } from 'react-final-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { stopEdit } from '../features/slice';
+import { selectEditID, selectFormations, selectInitialFormValues } from '../features/selector';
 
 function UnivForm() {
+    const univs = useSelector(selectFormations);
+    const editID = useSelector(selectEditID);
+    const initialValues = useSelector(selectInitialFormValues);
     const dispatch = useDispatch();
+
+    console.log(initialValues);
 
     function handleExit() {
         dispatch(stopEdit());
@@ -75,6 +81,9 @@ function UnivForm() {
                                     )}
                                 >
                                 </Field>
+                                {
+                                    
+                                }
                             </Grid2>
                         </form>
                     )}

@@ -7,7 +7,7 @@ function Item({ univ }) {
     const dispatch = useDispatch();
 
     const handleEdit = () => {
-        dispatch(startEdit(univ.id));
+        dispatch(startEdit(univ._id));
     };
 
     return (
