@@ -6,7 +6,8 @@ import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import Typography from '@mui/material/Typography';
+import {Typography} from '@mui/material';
+import {filterIncludes, filterBoolean} from '../utils/filters'
  // pour l'instant ville, region et mention sont des textfield, penser à les mettre en menu déroulant
 const FilterForm = ({ onFilter }) => {
   const handleSubmit = (values) => {

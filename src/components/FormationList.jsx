@@ -1,24 +1,24 @@
 import { useDispatch, useSelector } from 'react-redux';
 import Formation from './Formation';
+import FilterForm from './FilterForm';
+import { useMemo, useState } from 'react';
+import { selectFormations } from '../features/formation/formationSelector';
 
 function FormationList() {
       const [filters, setFilters] = useState([]); // State pour les filtres actifs
 
     const formationList = useSelector(selectFormations);
+    console.log(formationList);
     const filteredFormations = useMemo(() => {
-        if (filters.length === 0) return FormationList; 
-        const filterFunc = (formation) => filters.every((formation) => filter(formation));
-        return FormationList.filter(filterFunc);
+        if (filters.length === 0) return formationList; 
+        const filterFunc = (formation) => filters.every((filter) => filter(formation));
+        return formationList.filter(filterFunc);
       }, [formationList, filters]);
     
     return (
         <>
          
-      {errorDel && (
-          <Alert severity="error" sx={{ mb: 2, mx: 'auto', width: '80%' }}>
-            {errorDel}
-          </Alert>
-        )}
+      
               <FilterForm onFilter={setFilters} />
 
             <div>

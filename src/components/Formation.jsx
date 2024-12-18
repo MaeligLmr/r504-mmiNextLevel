@@ -1,6 +1,7 @@
 import React from "react";
 import { selectFormations } from '../features/formation/formationSelector';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from "react-redux";
 
 function Formation({ formation }){
     const formationList = useSelector(selectFormations);

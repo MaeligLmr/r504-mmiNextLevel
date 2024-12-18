@@ -7,6 +7,7 @@ export const loadFormations = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(URL_API_FORMATIONS); // Remplacez par votre endpoint API
+      console.log(response.data);
       return response.data; // Retourne les données des formations
     } catch (error) {
       return rejectWithValue("L'application est actuellement indisponible, Veuillez réessayer ultérieurement")
