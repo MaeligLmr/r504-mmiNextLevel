@@ -10,7 +10,7 @@ function UnivForm() {
     const initialValues = useSelector(selectInitialFormValues);
     const dispatch = useDispatch();
 
-    console.log(initialValues);
+    console.log(initialValues.masters);
 
     function handleExit() {
         dispatch(stopEdit());
@@ -19,12 +19,38 @@ function UnivForm() {
 
     }
 
+    function displayMasters() {
+        return (
+            <>
+                {
+                    initialValues.masters.map((master, id) => {
+                        if (master.urlMaster) {
+                            return (
+                                <Field
+                                    name={master.urlMaster}
+                                    render={({ input, meta }) => (
+                                        <TextField
+                                            {...input}
+                                            variant="outlined"
+                                            label="URL du site"
+                                            fullWidth
+                                            value={input.value}
+                                        />
+                                    )}
+                                />)
+                        }
+                    })
+                }
+            </>
+        )
+    }
+
     return (
         <Dialog open={true} onClose={handleExit}>
-            <DialogTitle sx={{textAlign:'center'}}>Modifier une Université</DialogTitle>
+            <DialogTitle sx={{ textAlign: 'center' }}>Modifier une Université</DialogTitle>
             <DialogContent>
                 <Form
-                    initialValues=''
+                    initialValues={initialValues}
                     onSubmit={handleSubmit}
                     render={({ handleSubmit }) => (
                         <form>
@@ -82,7 +108,7 @@ function UnivForm() {
                                 >
                                 </Field>
                                 {
-                                    
+                                    displayMasters()
                                 }
                             </Grid2>
                         </form>
