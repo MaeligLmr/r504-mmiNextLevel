@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import {Typography} from '@mui/material';
+import {Grid2, Typography} from '@mui/material';
 import {filterIncludes, filterBoolean} from '../utils/filters'
  // pour l'instant ville, region et mention sont des textfield, penser à les mettre en menu déroulant
 const FilterForm = ({ onFilter }) => {
@@ -49,7 +49,7 @@ const FilterForm = ({ onFilter }) => {
               Filtres
             </Typography>
 
-            <Grid container spacing={3}>
+            <Grid2 container spacing={3}>
               {/* Mention */}
               <Grid item xs={12} sm={6}>
                 <Field
@@ -122,7 +122,7 @@ const FilterForm = ({ onFilter }) => {
                   )}
                 />
               </Grid>
-            </Grid>
+            </Grid2>
 
             <Box sx={{ mt: 3, textAlign: 'center' }}>
               <Button type="submit" variant="contained" color="primary" sx={{ mr: 2 }}>

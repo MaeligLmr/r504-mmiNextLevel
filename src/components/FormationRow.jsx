@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 function FormationRow({ formation }){
     const formationList = useSelector(selectFormations);
     const masterList = useSelector(selectMasters);
-    console.log(masterList);
 
     return(
         <>
