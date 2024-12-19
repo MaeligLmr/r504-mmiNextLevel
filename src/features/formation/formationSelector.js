@@ -1,5 +1,6 @@
 // faire les selector de toutes les formations + le selector des formations filtrées
 export const selectFormations = (state) => state.formations.formations;
+export const selectMasters = (state) => state.formations.masters;
 export const selectTotalFormations = (state) => state.formations.formations.length;
 export const selectLoading = (state) => state.formations.loading;
 export const selectEditing = (state) => state.formations.isEditing;
