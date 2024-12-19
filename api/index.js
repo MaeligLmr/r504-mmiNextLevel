@@ -93,6 +93,25 @@ async function findMasters() {
   return (result);
 }
 
+// Récupérations des FORMATIONS (une mention pour une université)
+app.get('/api/formations', (req, res)=> {
+    getMentionByUniv().then(formations=> res.json(formations));
+});
+
+//fonction qui éclate les tableaux des masters, pour avoir un document par master
+async function getMentionByUniv(){
+  const result = await client
+  .db('test')
+  .collection('etablissements')
+  .aggregate([
+    {
+      $unwind: "$masters"
+    }
+  ]).toArray();
+
+  return result;
+}
+
 // Récupération d'un établissement via son ID passée en paramètre
 app.get('/api/etablissements/:entryId', (req, res) => {
   // ID de l'établissement à trouver
