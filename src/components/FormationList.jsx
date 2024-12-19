@@ -17,11 +17,11 @@ function FormationList() {
         <>
               <FilterForm onFilter={setFilters} />
 
-            <div>
+            <ul>
                 {filteredFormations.map((formation)=>
                     <FormationRow key={formation._id} formation={formation}></FormationRow>
                 )}
-            </div>
+            </ul>
         </>
     )
 }
