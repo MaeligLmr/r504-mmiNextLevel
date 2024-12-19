@@ -5,11 +5,6 @@ import { useSelector } from "react-redux";
 
 function Formation({ formation }){
     const formationList = useSelector(selectFormations);
-    const navigate = useNavigate();
-
-    const handleReturn = () => {
-        navigate(-1);
-    }
 
     return(
         <>
@@ -25,7 +20,7 @@ function Formation({ formation }){
                     <li>{formation.masters.parcours.enDistanciel}</li>
                     <li>{formation.masters.parcours.urlParcours}</li>
                 </ul>
-                <button type="button" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleReturn}>Retour</button>
+                <button type="button" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Retour</button>
             </div>
         </>
     )

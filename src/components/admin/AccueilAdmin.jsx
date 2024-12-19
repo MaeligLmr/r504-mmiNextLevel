@@ -1,10 +1,10 @@
 import { useEffect } from "react";
-import { load } from "./features/asyncAction";
 import { useDispatch, useSelector } from "react-redux";
-import UnivList from "./components/UnivList";
-import {selectEdit, selectLoading} from './features/selector';
+import UnivList from "./UnivList";
 import { Typography } from "@mui/material";
-import UnivForm from "./components/UnivForm";
+import UnivForm from "./UnivForm";
+import { selectEdit, selectLoading } from "../../features/admin/adminSelector";
+import { load } from "../../features/admin/adminAsyncAction";
 
 function AccueilAdmin() {
     const dispatch = useDispatch();

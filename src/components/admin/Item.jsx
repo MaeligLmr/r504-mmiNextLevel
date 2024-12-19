@@ -1,6 +1,6 @@
 import { Button, ListItem, Typography } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { startEdit } from "../features/slice";
+import { startEdit } from "../../features/admin/adminSlice";
 
 function Item({ univ }) {
 

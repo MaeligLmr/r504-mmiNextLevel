@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { selectFormations } from "../features/selector";
+import { selectFormations } from "../../features/admin/adminSelector";
 import { List } from "@mui/material";
 import Item from "./Item";
 

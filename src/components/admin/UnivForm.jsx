@@ -1,8 +1,8 @@
 import { Button, Dialog, DialogContent, DialogTitle, Grid2, TextField } from '@mui/material';
 import { Form, Field } from 'react-final-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { stopEdit } from '../features/slice';
-import { selectEditID, selectFormations, selectInitialFormValues } from '../features/selector';
+import { stopEdit } from '../../features/admin/adminSlice';
+import { selectEditID, selectFormations, selectInitialFormValues } from '../../features/admin/adminSelector';
 
 function UnivForm() {
     const univs = useSelector(selectFormations);

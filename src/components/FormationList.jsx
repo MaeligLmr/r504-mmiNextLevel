@@ -17,8 +17,6 @@ function FormationList() {
     
     return (
         <>
-         
-      
               <FilterForm onFilter={setFilters} />
 
             <div>
