@@ -51,7 +51,7 @@ const FilterForm = ({ onFilter }) => {
               Filtres
             </Typography>
 
-            <Grid container spacing={3}>
+            <Grid2 container spacing={3}>
               {/* Mention */}
               <Grid item xs={12} sm={6}>
                 <Field name="mention">
@@ -126,7 +126,7 @@ const FilterForm = ({ onFilter }) => {
                   )}
                 </Field>
               </Grid>
-            </Grid>
+            </Grid2>
 
             <Box sx={{ mt: 3, textAlign: 'center' }}>
               <Button type="submit" variant="contained" color="primary" sx={{ mr: 2 }}>
