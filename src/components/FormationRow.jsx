@@ -2,15 +2,17 @@ import React from "react";
 import { selectFormations, selectMasters } from '../features/formation/formationSelector';
 import { useSelector } from "react-redux";
 
-function Formation({ formation }){
+function FormationRow({ formation }){
     const formationList = useSelector(selectFormations);
     const masterList = useSelector(selectMasters);
+    console.log(masterList);
 
     return(
         <>
             <div className="border-black border-2 shadow-sm p-8 m-6 rounded-lg">
                 <h2>
                     {masterList.map((master)=>{
+                        console.log(master.mention);
                         return master.mention
                     })}
                 </h2>
@@ -35,4 +37,4 @@ function Formation({ formation }){
     )
 };
 
-export default Formation;
+export default FormationRow;
