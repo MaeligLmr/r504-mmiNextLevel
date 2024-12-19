@@ -1,22 +1,23 @@
 import { Button, Dialog, DialogContent, DialogTitle, Grid2, TextField } from '@mui/material';
 import { Form, Field } from 'react-final-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { stopEdit } from '../../features/admin/adminSlice';
 import { selectEditID, selectFormations, selectInitialFormValues } from '../../features/admin/adminSelector';
+import { updateFormation } from '../../features/admin/adminAsyncAction';
+import { stopEdit } from '../../features/admin/adminSlice';
+
 
 function UnivForm() {
     const univs = useSelector(selectFormations);
     const editID = useSelector(selectEditID);
     const initialValues = useSelector(selectInitialFormValues);
     const dispatch = useDispatch();
+    
+    const handleSubmit = async (values, form) => {
+        dispatch(updateFormation(values));
+    };
 
-    console.log(initialValues.masters);
-
-    function handleExit() {
+    const handleExit = () => {
         dispatch(stopEdit());
-    }
-    function handleSubmit() {
-
     }
 
     function displayMasters() {
@@ -27,6 +28,7 @@ function UnivForm() {
                         if (master.urlMaster) {
                             return (
                                 <Field
+                                    key={id}
                                     name={master.urlMaster}
                                     render={({ input, meta }) => (
                                         <TextField
@@ -53,7 +55,7 @@ function UnivForm() {
                     initialValues={initialValues}
                     onSubmit={handleSubmit}
                     render={({ handleSubmit }) => (
-                        <form>
+                        <form onSubmit={handleSubmit}>
                             <Grid2 container>
                                 <Field
                                     name='nom'
@@ -110,11 +112,12 @@ function UnivForm() {
                                 {
                                     displayMasters()
                                 }
+                                <Button onClick={handleExit} aria-label='annuler'>Annuler</Button>
+                                <Button type='submit' aria-label='enregistrer'>Enregistrer</Button>
                             </Grid2>
                         </form>
                     )}
                 ></Form>
-                <Button onClick={handleExit} aria-label='annuler'>Annuler</Button>
             </DialogContent>
         </Dialog>
     )

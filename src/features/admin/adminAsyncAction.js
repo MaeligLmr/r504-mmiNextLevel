@@ -7,10 +7,9 @@ export const loadFormations = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(URL_API_FORMATIONS);
-      //console.log(response);
       return response.data; // Retourne les données des formations
     } catch (error) {
-      return rejectWithValue("L'application est actuellement indisponible, Veuillez réessayer ultérieurement")
+      return rejectWithValue("L'application est actuellement indisponible, veuillez réessayer ultérieurement.")
     }
   }
 );
@@ -28,18 +27,17 @@ export const addFormation = createAsyncThunk(
   }
 );
 
+// Modifie une université
 export const updateFormation = createAsyncThunk(
-'formation/updateFormation',
-async (formationData, {rejectWithValue})=>{
-  try {
-    // Envoi d'une requête PUT à l'API pour modifier une formation
-    const response = await axios.put(URL_API_FORMATIONS + `/${formationData.id}`, formationData);
-    return response.data; // Retourne les données de la formation modifiée
-  } catch (error) {
-    // Gestion des erreurs : on retourne l'erreur à la fonction de rejet
-    throw new Error(error)
+  'formation/updateFormation',
+  async (dataToSend, {getState}) => {
+      try {
+          const response = await axios.put(URL_API_FORMATIONS + "/update/etablissement/" + getState().admin.idUnivEdited, dataToSend);
+          return response.data;
+      } catch(error){
+          throw new Error(error);
+      }
   }
-}
 );
 
 export const deleteFormation = createAsyncThunk(
