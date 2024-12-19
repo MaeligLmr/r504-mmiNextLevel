@@ -3,7 +3,7 @@ import FormationList from "./FormationList";
 import { useDispatch, useSelector } from "react-redux";
 import { selectErrorLoad, selectLoading } from "../features/formation/formationSelector";
 import { useEffect } from "react";
-import { loadFormations } from "../features/formation/formationAsyncAction";
+import { loadFormations, loadMasters } from "../features/formation/formationAsyncAction";
 
 function Accueil() {
     const scrollDown = () => {
@@ -19,6 +19,7 @@ function Accueil() {
     useEffect(() => {
         return () => {
             dispatch(loadFormations());
+            dispatch(loadMasters());
         };
     }, [dispatch]);
 

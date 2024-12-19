@@ -43,7 +43,7 @@ const formationSlice = createSlice({
             })
             .addCase(loadMasters.fulfilled, (state, action) => {
                 state.loading = false;
-                state.formations = action.payload;
+                state.masters = action.payload;
             })
             .addCase(loadMasters.rejected, (state, action) => {
                 state.errors.apiErrorLoad = action.payload || "Erreur lors du chargement des formations";
