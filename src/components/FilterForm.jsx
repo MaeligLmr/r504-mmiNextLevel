@@ -6,37 +6,39 @@ import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import {Typography} from '@mui/material';
-import {filterIncludes, filterBoolean} from '../utils/filters'
- // pour l'instant ville, region et mention sont des textfield, penser à les mettre en menu déroulant
+import { MenuItem, Typography } from '@mui/material';
+import Select from '@mui/material/Select';
+import { filterIncludes, filterBoolean } from '../utils/filters';
+import { selectMasters, selectRegions } from '../features/formation/formationSelector';
+import { useSelector } from 'react-redux';
+import { Construction } from '@mui/icons-material';
+
 const FilterForm = ({ onFilter }) => {
+  const masterList = useSelector(selectMasters);
+  const regionList = useSelector(selectRegions);
+
   const handleSubmit = (values) => {
     const activeFilters = [];
 
-    // Ajout des fonctions de filtre
     if (values.mention) {
-      activeFilters.push(filterIncludes('mention')(values.mention));
+      activeFilters.push({function : filterIncludes('_idMaster')(values.mention), type : "master"});
     }
     if (values.region) {
-      activeFilters.push(filterIncludes('region')(values.region));
-    }
-    if (values.ville) {
-      activeFilters.push(filterIncludes('ville')(values.ville));
+      activeFilters.push({function : filterIncludes('region')(values.region), type : "formation"});
     }
     if (values.alternance !== undefined) {
-      activeFilters.push(filterBoolean('alternance')(values.alternance));
+      activeFilters.push({function : filterBoolean('alternance')(values.alternance), type : "formation"});
     }
     if (values.distanciel !== undefined) {
-      activeFilters.push(filterBoolean('distanciel')(values.distanciel));
+      activeFilters.push({function : filterBoolean('distanciel')(values.distanciel), type : "formation"});
     }
 
-    // Appel de la fonction onFilter avec les filtres actifs
     onFilter(activeFilters);
   };
 
   const handleReset = (form) => {
     form.reset();
-    onFilter([]); // Réinitialiser les filtres
+    onFilter([]);
   };
 
   return (
@@ -52,75 +54,77 @@ const FilterForm = ({ onFilter }) => {
             <Grid container spacing={3}>
               {/* Mention */}
               <Grid item xs={12} sm={6}>
-                <Field
-                  name="mention"
-                  render={({ input }) => (
-                    <TextField
+                <Field name="mention">
+                  {({ input }) => (
+                    <Select
                       {...input}
-                      label="Mention"
-                      variant="outlined"
                       fullWidth
-                    />
+                      variant="outlined"
+                      displayEmpty
+                      defaultValue=""
+                    >
+                      <MenuItem value="">
+                        Mention
+                      </MenuItem>
+                      {masterList.map((master, index) => (
+                        <MenuItem key={index} value={master._id}>
+                          {master.mention}
+                        </MenuItem>
+                      ))}
+                    </Select>
                   )}
-                />
+                </Field>
               </Grid>
 
               {/* Région */}
               <Grid item xs={12} sm={6}>
-                <Field
-                  name="region"
-                  render={({ input }) => (
-                    <TextField
+              <Field name="region">
+                  {({ input }) => (
+                    <Select
                       {...input}
-                      label="Région"
-                      variant="outlined"
                       fullWidth
-                    />
+                      variant="outlined"
+                      displayEmpty
+                      defaultValue=""
+                    >
+                      <MenuItem value="">
+                        Region
+                      </MenuItem>
+                      {regionList.map((region, index) => (
+                        <MenuItem key={index} value={region}>
+                          {region}
+                        </MenuItem>
+                      ))}
+                    </Select>
                   )}
-                />
+                </Field>
               </Grid>
 
               {/* Ville */}
-              <Grid item xs={12} sm={6}>
-                <Field
-                  name="ville"
-                  render={({ input }) => (
-                    <TextField
-                      {...input}
-                      label="Ville"
-                      variant="outlined"
-                      fullWidth
-                    />
-                  )}
-                />
-              </Grid>
+            
 
               {/* Alternance possible */}
               <Grid item xs={12} sm={6}>
-                <Field
-                  name="alternance"
-                  type="checkbox"
-                  render={({ input }) => (
+                <Field name="alternance" type="checkbox">
+                  {({ input }) => (
                     <FormControlLabel
                       control={<Checkbox {...input} />}
                       label="Alternance possible"
                     />
                   )}
-                />
+                </Field>
               </Grid>
 
               {/* Distanciel */}
               <Grid item xs={12} sm={6}>
-                <Field
-                  name="distanciel"
-                  type="checkbox"
-                  render={({ input }) => (
+                <Field name="distanciel" type="checkbox">
+                  {({ input }) => (
                     <FormControlLabel
                       control={<Checkbox {...input} />}
                       label="Distanciel"
                     />
                   )}
-                />
+                </Field>
               </Grid>
             </Grid>
 

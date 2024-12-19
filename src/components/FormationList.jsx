@@ -9,7 +9,14 @@ function FormationList() {
     const formationList = useSelector(selectFormations);
     const filteredFormations = useMemo(() => {
         if (filters.length === 0) return formationList; 
-        const filterFunc = (formation) => filters.every((filter) => filter(formation));
+        const filterFunc = (formation) => filters.every((filter) => {
+            if(filter.type === "master")
+                {
+                    return formation.masters.some((master) => filter.function(master))
+                } else {
+                    return filter.function(formation)
+                }});
+                console.log(formationList.filter(filterFunc))
         return formationList.filter(filterFunc);
       }, [formationList, filters]);
     

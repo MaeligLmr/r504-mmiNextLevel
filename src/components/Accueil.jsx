@@ -3,7 +3,7 @@ import FormationList from "./FormationList";
 import { useDispatch, useSelector } from "react-redux";
 import { selectErrorLoad, selectLoading } from "../features/formation/formationSelector";
 import { useEffect } from "react";
-import { loadFormations } from "../features/formation/formationAsyncAction";
+import { loadFormations, loadMasters } from "../features/formation/formationAsyncAction";
 
 function Accueil() {
     const scrollDown = () => {
@@ -19,18 +19,19 @@ function Accueil() {
     useEffect(() => {
         return () => {
             dispatch(loadFormations());
+            dispatch(loadMasters());
         };
     }, [dispatch]);
 
 
     return (
         <>
-            <header>
+            <header className="absolute top-2 left-1/2 translate-x-[-50%]">
                 <h1>MMI NEXT LEVEL 😊</h1>
             </header>
             <main>
                 <div className="h-screen w-screen">
-                    <button onClick={scrollDown} aria-label="scroll down" className=" absolute bottom-2 left-1/2 rounded-full bg-transparent border border-white"></button>
+                    <button onClick={scrollDown} aria-label="scroll down" className="w-7 h-5 absolute bottom-2 left-1/2 rounded-full bg-black border border-white"></button>
                 </div>
                 {error && (
                     <Alert severity="error" sx={{ mb: 2, mx: 'auto', width: '80%' }}>

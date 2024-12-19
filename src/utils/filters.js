@@ -17,20 +17,22 @@ export const filterIncludes = (property) => (search) => (obj) => {
   };
 
   export const filterBoolean = (property) => (search) => (obj) => {
-    if (typeof property !== 'string' || !obj.hasOwnProperty(property)) {
+    if (typeof property !== 'string') {
         throw new Error(`Invalid property: ${property}`);
     }
-    if (typeof search !== 'boolean') {
-        throw new Error(`Invalid search value: ${search}. Expected a boolean.`);
+
+    if (!obj.hasOwnProperty(property)) {
+        return true;
     }
 
     const propertyValue = obj[property];
-    if (typeof propertyValue !== 'boolean') {
-        throw new Error(`The value of property ${property} is not a boolean.`);
-    }
 
+    if (typeof propertyValue !== 'boolean') {
+        return true;
+    }
     return propertyValue === search;
 };
+
 
 
 
