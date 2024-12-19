@@ -36,7 +36,7 @@ const formationSlice = createSlice({
             })
             .addCase(loadFormations.rejected, (state, action) => {
                 state.errors.apiErrorLoad = action.payload || "Erreur lors du chargement des formations";
-                state.loading = action.false;
+                state.loading = false;
             })
             .addCase(loadMasters.pending, (state, action) => {
                 state.loading = true;

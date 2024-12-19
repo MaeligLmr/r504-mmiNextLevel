@@ -6,7 +6,6 @@ import { selectFormations } from '../features/formation/formationSelector';
 
 function FormationList() {
     const [filters, setFilters] = useState([]); // State pour les filtres actifs
-
     const formationList = useSelector(selectFormations);
     const filteredFormations = useMemo(() => {
         if (filters.length === 0) return formationList; 
@@ -16,8 +15,6 @@ function FormationList() {
     
     return (
         <>
-         
-      
               <FilterForm onFilter={setFilters} />
 
             <div>
