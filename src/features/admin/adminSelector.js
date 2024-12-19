@@ -2,7 +2,6 @@ import { createSelector } from "@reduxjs/toolkit";
 
 export const selectFormations = (state) => state.admin.univ;
 export const selectIsAdmin = (state) => state.admin.isAdmin;
-export const selectLoading = (state) => state.admin.loading;
 export const selectEdit = (state) => state.admin.editing;
 export const selectEditID = (state) => state.admin.idUnivEdited;
 

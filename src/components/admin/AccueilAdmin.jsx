@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import UnivList from "./UnivList";
 import { Typography } from "@mui/material";
 import UnivForm from "./UnivForm";
-import { selectEdit, selectLoading } from "../../features/admin/adminSelector";
-import { load } from "../../features/admin/adminAsyncAction";
+import { selectEdit } from "../../features/admin/adminSelector";
+import { loadFormations } from "../../features/formation/formationAsyncAction";
+import { selectLoading } from "../../features/formation/formationSelector";
 
 function AccueilAdmin() {
     const dispatch = useDispatch();
@@ -13,7 +14,7 @@ function AccueilAdmin() {
 
     useEffect(()=>
     {
-        dispatch(load());
+        dispatch(loadFormations());
     }, [dispatch])
 
     return(

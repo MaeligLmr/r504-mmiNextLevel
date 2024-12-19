@@ -9,15 +9,19 @@ let client; //on initialise le client ici pour que toutes les fonctions y aient 
 const app = express();
 app.use(bodyParser.json());
 app.use(express.static('public'));
+
+// Gestion des en-têtes HTTP
 app.use((req, res, next) => {
-  res.append('Access-Control-Allow-Origin', ['*']);
-  res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.append('Access-Control-Allow-Headers', 'Content-Type');
+  res.append('Access-Control-Allow-Origin', 'http://localhost:3000'); // A CHANGER --> uniquement pour le local
+  res.append('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
+  res.append('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   next();
 });
 
 async function main() {
-  const uri = "mongodb://127.0.0.1";
+  const uri = "mongodb://127.0.0.1"; // Localhost --> à changer pendant l'hébergement
+
+  // Connexion avec la base MongoDB
   client = new MongoClient(uri);
   try {
     await client.connect();
@@ -44,39 +48,6 @@ function createError(errorMessage) {
   };
 }
 
-/*
-//fonction pour vérifier les données en entrée -------- EN CHANTIER
-function parseEntryBody(requestBody) {
-  let {
-    nom,
-    urlSite,
-    ville,
-    region,
-    idMaster,
-    urlMaster,
-    nomParcours,
-    anneesParcours,
-    alternancePossible,
-    enDistanciel,
-    urlParcours
-  } = requestBody;
-  nom = nom ? nom.toString() : null;
-  urlSite = urlSite ? urlSite.toString() : null;
-  ville = ville ? ville.toString() : null;
-  region = region ? region.toString() : null;
-  
-
-  if (!nom || !urlSite ) {
-    throw new Error('Informations manquantes ou mauvais format');
-  }
-  return {
-    nom,
-    
-  };
-}
-*/
-
-
 //fonction qui transforme les données en entrée en un tableau d'objets parcours
 function formatParcours(tabParcours) {
   let tabObjetsParcours = [];
@@ -92,12 +63,12 @@ function formatParcours(tabParcours) {
 
 /*-----------------------------------------GET------------------------------------------*/
 
-//requete qui récupère tous les etablissements
+// Récupération de tous les établissements
 app.get('/api/etablissements', (req, res) => {
   findEtablissements().then(entries => res.json(entries));
 });
 
-//fonction qui récupère tous les établissements
+// Fonction qui récupère tous les établissements
 async function findEtablissements() {
   const result = await client
     .db("test")
@@ -107,12 +78,12 @@ async function findEtablissements() {
   return (result);
 }
 
-//requete qui récupère tous les masters
+// Récupération de tous les masters
 app.get('/api/masters', (req, res) => {
   findMasters().then(entries => res.json(entries));
 });
 
-//fonction qui récupère tous les établissements
+// Fonction qui récupère tous les masters
 async function findMasters() {
   const result = await client
     .db("test")
@@ -122,8 +93,9 @@ async function findMasters() {
   return (result);
 }
 
-//requete qui récupère un établissement avec l'id
+// Récupération d'un établissement via son ID passée en paramètre
 app.get('/api/etablissements/:entryId', (req, res) => {
+  // ID de l'établissement à trouver
   const entryId = req.params.entryId;
 
   try {
@@ -133,9 +105,9 @@ app.get('/api/etablissements/:entryId', (req, res) => {
   }
 });
 
-//fonction qui récupère l'établissement en fonction de l'id en paramètre
+// Fonction qui récupère l'établissement en fonction de l'ID en paramètre
 async function findEtablissementsById(id) {
-
+  // ID de l'établissement à trouver
   const objectId = new ObjectId(id);
 
   const result = await client
@@ -150,8 +122,9 @@ async function findEtablissementsById(id) {
 
 };
 
-//requete qui récupère un master avec l'id
+// Requête qui récupère un master dont l'ID est passée en paramètre
 app.get('/api/masters/:entryId', (req, res) => {
+  // ID du master en paramètre
   const entryId = req.params.entryId;
 
   try {
@@ -161,9 +134,9 @@ app.get('/api/masters/:entryId', (req, res) => {
   }
 });
 
-//fonction qui récupère un master en fonction de l'id en paramètre
+// Fonction qui récupère un master en fonction de l'ID en paramètre
 async function findMasterById(id) {
-
+  // ID du master en paramètre
   const objectId = new ObjectId(id);
 
   const result = await client
@@ -180,125 +153,62 @@ async function findMasterById(id) {
 
 /*--------------------------------------PUT------------------------------------- */
 
-//requete pour modifier le document d'un établissement
-//pour ajouter une formation à une université
-app.put('/update/etablissement', async (req, res) => {
+// Requête de modification du document d'un établissement dont l'ID est passée en paramètre
+// pour ajouter une formation à une université
+app.put('/api/etablissements/update/etablissement/:idUniv', async (req, res) => {
+  // Récupération et formatage de l'ID de l'établissement
+  const objectId = new ObjectId(req.params.idUniv);
 
   try {
-    //const mastersId = await getMastersID(req.body.idEtab); //on recupère les id des masters (=mention) de l'établissement concerné
-    //console.log(mastersId[0]._id);
-    //mastersId[0]._id correspond au tableau contenu dans la réponse de getMastersID
-    updateEtablissement(req.body, mastersId[0]._id).then(entries => res.json(entries));
+    // Mise à jour de l'établissement
+    updateEtablissement(objectId, req.body)
+    .then(nouvelEtablissement => {
+      if (!nouvelEtablissement) {
+        res.status(404).json(createError('Document introuvable.'));
+      } else {
+        res.status(200).json(nouvelEtablissement);
+      }
+    });
 
   } catch (e) {
-    res.status(404).json(createError('Entrée introuvable'));
+    res.status(404).json(createError(e.message));
   }
 
 });
 
-async function updateEtablissement(datas, mastersId) {
-  //datas correspond aux données du formulaire
+// Permet de mettre à jour le document d'un établissement dont on fournit l'ID et le nouvel objet en paramètre
+async function updateEtablissement(univId, datas) {
+  //datas correspond aux données du formulaire (le nouvel objet de l'établissement)
   //mastersId correspond au tableau des id de l'établissement
 
   /*const {
     
   } = parseEntryBody(req.body);*/ //vérification des données en entrée à faire plus tard
 
-  // const objectId = new ObjectId(id);
-  // const result = await client
-  //   .db("test")
-  //   .collection("etablissements")
-  //   .updateOne({
-  //     _id: objectId
-  //   }, {
-  //     $set: {
-
-  //     }
-  //   });
-  const result = true;
-
-  return result;
-}
-
-app.get('/idMasters', async (req, res) => {
-  try {
-    getMastersID(req.body.idEtab).then(entries => res.json(entries));
-  } catch (er) {
-
-  }
-})
-
-//récupère les id des masters disponibles dans un établissement
-async function getMastersID(idEtab) {
-  etablissement = new ObjectId(idEtab);
-
-  const result = await client
-    .db('test')
-    .collection('etablissements')
-    .aggregate([{
-        $match: {
-          _id: etablissement //cherche l'établissement avec l'id passé en parametre
-        }
-      },
-      {
-        $group: {
-          _id: "$masters._idMaster" //groupe par l'id des masters
-        }
-      }
-    ]).toArray();
-
-  return result; //retourne un tableau du type : [{_id: ['id1', 'id2','id3']}]
-}
-
-/*--------------------------------------POST-----------------------------------
-
-app.post('/etablissements', (req, res) => {
-  try {
-    insertEtablissement(req).then(newEntry => res.json(newEntry));
-  } catch (e) {
-    res.status(400).json(createError(e.message));
-  }
-});
-
-async function insertEtablissement(newEtablissement) {
-  const {
-    nom,
-    urlSite,
-    ville,
-    region,
-    idMaster,
-    urlMaster,
-    nomParcours,
-    anneesParcours,
-    alternancePossible,
-    enDistanciel,
-    urlParcours
-  } = parseEntryBody(newEtablissement.body);
-
-  const etabToInsert = {
-    _id: new ObjectId,
-    nom,
-    urlSite,
-    ville,
-    region,
-    masters: [{
-      idMaster,
-      urlMaster,
-      nomParcours,
-      anneesParcours,
-      alternancePossible,
-      enDistanciel,
-      urlParcours
-    }],
+  // On ne remplace pas l'ID du document
+  if(datas.hasOwnProperty('_id')){
+    delete datas._id;
   }
 
+  // Mise à jour du document
+  await client
+    .db("test")
+    .collection("etablissements")
+    .updateOne({
+      _id: univId
+    }, {
+      $set: datas
+    });
+
+  // Récupération du document mis à jour
   const result = await client
     .db("test")
-    .collection("Etablissement")
-    .insertOne(etabToInsert);
+    .collection("etablissements")
+    .findOne({
+      _id: univId
+    });
 
   return result;
 }
-*/
 
 app.listen(5000);

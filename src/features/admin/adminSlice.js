@@ -1,12 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { load } from './adminAsyncAction';
+import { addFormation, deleteFormation, loadFormations, updateFormation } from './adminAsyncAction';
 
 const adminSlice = createSlice({
     name: 'admin',
     initialState: {
-        univ: [],
+        univ:[],
         isAdmin: true,
-        loading: false,
         editing: false,
         idUnivEdited: null
     },
@@ -24,17 +23,42 @@ const adminSlice = createSlice({
         apiErrorLoad: null,
     },
     extraReducers: (builder) => {
-        builder.addCase(load.pending, (state, action)=> {
+        builder.addCase(loadFormations.pending, (state, action)=> {
             state.loading = true;
        })
-       .addCase(load.fulfilled, (state, action)=> {
+       .addCase(loadFormations.fulfilled, (state, action)=> {
             state.univ = action.payload;
             state.loading = false;
        })
-       .addCase(load.rejected, (state, action)=> {
+       .addCase(loadFormations.rejected, (state, action)=> {
             console.log(action.error.message);
             state.loading = false;
        })
+    //    .addCase(addFormation.fulfilled, (state, action)=>{
+    //     state.univ.push(action.payload);
+    //     state.editing = false;
+    // })
+    // .addCase(addFormation.rejected, (state, action)=>{
+    //     console.log("Erreur lors de l'ajout de formation :" + action.error.message)
+    // })
+    .addCase(updateFormation.fulfilled, (state, action) => {
+        state.univ[state.univ.findIndex((element) => element._id === state.idUnivEdited)] = action.payload;
+        state.editing = false;
+        state.idUnivEdited = null;
+    })
+    .addCase(updateFormation.rejected, (state, action) => {
+        console.log(action.error.message);
+    })
+    // .addCase(deleteFormation.fulfilled, (state, action) => {
+    //     state.univ = state.univ.filter((formation) => formation._id !== action.payload._id);
+    //     state.loading = false; 
+    //   })
+    //   // Cas rejected pour deleteFormationAsync
+    //   .addCase(deleteFormation.rejected, (state, action) => {
+    //     console.log('Erreur lors de la suppression du formation :', action.payload);
+    //     state.loading = false; 
+        
+    //   });
     }
 })
 
