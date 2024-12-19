@@ -4,9 +4,8 @@ import { load } from './adminAsyncAction';
 const adminSlice = createSlice({
     name: 'admin',
     initialState: {
-        univ: [],
+        univ:[],
         isAdmin: true,
-        loading: false,
         editing: false,
         idUnivEdited: null
     },
