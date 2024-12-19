@@ -23,14 +23,16 @@ services:
     network:
       - back
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: 1234
     volumes:
       - mongodb_data:/data/db
 
   # Node.js Backend
   backend:
-    image: node:22
+    image: node:22-alpine 
+    build: 
+      dockerfile: Dockerfile
     restart : always
     working_dir: /usr/src/app
     volumes:
