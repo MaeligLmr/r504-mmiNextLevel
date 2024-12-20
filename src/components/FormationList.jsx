@@ -2,11 +2,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import FormationRow from './FormationRow';
 import FilterForm from './FilterForm';
 import { useEffect, useMemo, useState } from 'react';
-import { selectFormations } from '../features/formation/formationSelector';
+import { selectFormations, selectMasters } from '../features/formation/formationSelector';
+import { filterIncludes, filterIncludesArray } from '../utils/filters';
 
 function FormationList() {
     const [filters, setFilters] = useState([]); // State pour les filtres actifs
     const formationList = useSelector(selectFormations);
+    const masterList = useSelector(selectMasters);
     const [width, setWidth] = useState(window.innerWidth);
 
     //console.log(formationList);
@@ -17,10 +19,18 @@ function FormationList() {
             if(filter.type === "master")
                 {
                     return formation.masters.some((master) => filter.function(master))
-                } else {
+                } else if (filter.type === "masterKeywords"){
+                    const filteredMasters = masterList.filter((master) => filter.function(master));
+                    console.log(filteredMasters);
+                    const filteredMastersId = filteredMasters.map((master) => master._idMaster);
+                    filteredMastersId.every((masterId) =>{
+                            return formation.masters.some((master) => filterIncludes('_idMaster')(masterId)(master))
+
+                    })
+                }
+                else {
                     return filter.function(formation)
                 }});
-                console.log(formationList.filter(filterFunc))
         return formationList.filter(filterFunc);
     }, [formationList, filters]);
 

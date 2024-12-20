@@ -6,20 +6,25 @@ import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { Grid2, MenuItem, Typography } from '@mui/material';
+import { Autocomplete, MenuItem, Typography } from '@mui/material';
 import Select from '@mui/material/Select';
 import { filterIncludes, filterBoolean } from '../utils/filters';
-import { selectMasters, selectRegions } from '../features/formation/formationSelector';
+import { selectKeywords, selectMasters, selectRegions } from '../features/formation/formationSelector';
 import { useSelector } from 'react-redux';
 import { Construction } from '@mui/icons-material';
 
 const FilterForm = ({ onFilter }) => {
   const masterList = useSelector(selectMasters);
   const regionList = useSelector(selectRegions);
+  const keywords = useSelector(selectKeywords);
 
   const handleSubmit = (values) => {
     const activeFilters = [];
-
+    if (values.keywords && values.keywords.length > 0) {
+      values.keywords.forEach((keyword) =>
+        activeFilters.push({function : filterIncludes('competences')(keyword), type : 'masterKeywords'})
+      );
+    }
     if (values.mention) {
       activeFilters.push({function : filterIncludes('_idMaster')(values.mention), type : "master"});
     }
@@ -51,7 +56,21 @@ const FilterForm = ({ onFilter }) => {
               Filtres
             </Typography>
 
-            <Grid2 container spacing={3}>
+            <Grid container spacing={3}>
+            <Grid item xs={12} sm={6}>
+                <Field name="keywords">
+                  {({ input }) => (
+                    <Autocomplete
+                      multiple
+                      options={keywords}
+                      onChange={(event, newValue) => input.onChange(newValue)}
+                      renderInput={(params) => (
+                        <TextField {...params} label="Recherche" variant="outlined" fullWidth />
+                      )}
+                    />
+                  )}
+                </Field>
+              </Grid>
               {/* Mention */}
               <Grid item xs={12} sm={6}>
                 <Field name="mention">
@@ -126,7 +145,7 @@ const FilterForm = ({ onFilter }) => {
                   )}
                 </Field>
               </Grid>
-            </Grid2>
+            </Grid>
 
             <Box sx={{ mt: 3, textAlign: 'center' }}>
               <Button type="submit" variant="contained" color="primary" sx={{ mr: 2 }}>
