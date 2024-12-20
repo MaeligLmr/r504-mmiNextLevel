@@ -145,7 +145,7 @@ const FilterForm = ({ onFilter }) => {
                   )}
                 </Field>
               </Grid>
-            </Grid>
+            </Grid2>
 
             <Box sx={{ mt: 3, textAlign: 'center' }}>
               <Button type="submit" variant="contained" color="primary" sx={{ mr: 2 }}>

@@ -9,6 +9,8 @@ function FormationList() {
     const [filters, setFilters] = useState([]); // State pour les filtres actifs
     const formationList = useSelector(selectFormations);
     const masterList = useSelector(selectMasters);
+    const [width, setWidth] = useState(window.innerWidth);
+
     const filteredFormations = useMemo(() => {
         if (filters.length === 0) return formationList; 
         const filterFunc = (formation) => filters.every((filter) => {
@@ -28,17 +30,42 @@ function FormationList() {
                     return filter.function(formation)
                 }});
         return formationList.filter(filterFunc);
-      }, [formationList, filters]);
-    
+    }, [formationList, filters]);
+
+    function handleResize() {
+        setWidth(window.innerWidth)
+    }
+
+    useEffect(() => {
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+
     return (
         <>
-              <FilterForm onFilter={setFilters} />
+            {width > 1024
+                ?
+                <div className='grid grid-cols-4 px-8'>
+                    <FilterForm onFilter={setFilters} />
 
-            <ul>
-                {filteredFormations.map((formation)=>
-                    <FormationRow key={formation._id} formation={formation}></FormationRow>
-                )}
-            </ul>
+                    <ul className='col-span-3'>
+                        {filteredFormations.map((formation) =>
+                            <FormationRow key={formation._id} formation={formation}></FormationRow>
+                        )}
+                    </ul>
+                </div>
+                :
+                <>
+                    <FilterForm onFilter={setFilters} />
+
+                    <ul>
+                        {filteredFormations.map((formation) =>
+                            <FormationRow key={formation._id} formation={formation}></FormationRow>
+                        )}
+                    </ul>
+                </>
+            }
         </>
     )
 }
