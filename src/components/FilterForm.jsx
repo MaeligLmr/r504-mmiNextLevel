@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { MenuItem, Typography } from '@mui/material';
+import { Grid2, MenuItem, Typography } from '@mui/material';
 import Select from '@mui/material/Select';
 import { filterIncludes, filterBoolean } from '../utils/filters';
 import { selectMasters, selectRegions } from '../features/formation/formationSelector';

@@ -9,6 +9,8 @@ function FormationList() {
     const formationList = useSelector(selectFormations);
     const [width, setWidth] = useState(window.innerWidth);
 
+    //console.log(formationList);
+
     const filteredFormations = useMemo(() => {
         if (filters.length === 0) return formationList; 
         const filterFunc = (formation) => filters.every((filter) => {
