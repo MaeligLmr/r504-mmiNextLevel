@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { URL_API_FORMATIONS, URL_API_MASTERS } from '../../utils/config';
+import { URL_API_FORMATIONS, URL_API_MASTERS } from '../../config';
 
 export const loadFormations = createAsyncThunk(
     'formation/loadFormations', // Nom de l'action

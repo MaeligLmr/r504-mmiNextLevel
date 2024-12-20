@@ -9,12 +9,37 @@ export const filterIncludes = (property) => (search) => (obj) => {
     }
   
     const propertyValue = obj[property];
-    if (typeof propertyValue !== 'string') {
-      throw new Error(`The value of property ${property} is not a string.`);
+   
+    if (typeof propertyValue === 'string') {
+      return propertyValue.toLowerCase().includes(search.toLowerCase());
+    }
+    else if (Array.isArray(propertyValue)) {
+      return propertyValue.some(item => 
+        typeof item === 'string' && item.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+    else {throw new Error(`The value of property ${property} is not a string.`);}
+
+  
+  };
+
+  export const filterIncludesArray = (property) => (search) => (obj) => {
+    if (typeof property !== 'string' || !obj.hasOwnProperty(property)) {
+      throw new Error(`Invalid property: ${property}`);
+    }
+    if (typeof search !== 'string') {
+      throw new Error(`Invalid search term: ${search}`);
     }
   
-    return propertyValue.toLowerCase().includes(search.toLowerCase());
+    const propertyValue = obj[property];
+    if (!Array.isArray(propertyValue)) {
+      throw new Error(`The value of property ${property} should be an array.`);
+    }
+  
+    // Vérifie si le terme de recherche est inclus dans la propriété (insensible à la casse)
+    return propertyValue.some((item) => item.toLowerCase().includes(search.toLowerCase()));
   };
+  
 
   export const filterBoolean = (property) => (search) => (obj) => {
     if (typeof property !== 'string') {
