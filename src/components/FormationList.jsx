@@ -42,7 +42,7 @@ function FormationList() {
                 <>
                     <FilterForm onFilter={setFilters} />
 
-                    <ul>
+                    <ul className="formations grid grid-cols-2 lg:grid-cols-1 gap-5 w-full lg:w-2/3 z-5">
                         {filteredFormations.map((formation) =>
                             <FormationRow key={formation._id} formation={formation}></FormationRow>
                         )}

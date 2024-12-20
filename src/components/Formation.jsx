@@ -6,7 +6,7 @@ function Formation({ formation }){
 
     return(
         <>
-            <div className="border-black border-2 shadow-sm p-8 m-6 rounded-lg">
+            <div className="formation m-6 p-4 border-2 border-[#5E3472] shadow-[-6px_6px_0_0_#5E3472]">
                 <h3>{formation.nom}</h3>
                 <h4>
                     {formation.masters.map((allParcours)=>{
