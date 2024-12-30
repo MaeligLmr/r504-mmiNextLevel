@@ -1,37 +1,70 @@
-# MMI Next Level
+# Getting Started with Create React App
 
-MMI Next Level est une application web destinée à aider les étudiants en BUT MMI (Métiers du Multimédia et de l'Internet) dans leur recherche de formations post-MMI. Elle centralise les informations sur les formations publiques disponibles, offrant une navigation intuitive et des outils de recherche avancés pour simplifier cette démarche.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-Elle dispose également d'un mode ADMIN permettant à un compte de manipuler notre base de donnée de formations.
+## Available Scripts
 
-## Technologies utilisées
+In the project directory, you can run:
 
-### Frontend
-- **React.js** (v18.3.1) : Construction de l'interface utilisateur.
-- **Redux Toolkit** (v2.5.0) : Gestion de l'état global.
-- **React Router Dom** (v7.0.2) : Navigation entre les pages.
-- **Material-UI (MUI)** (v6.2.1) : Bibliothèque de composants stylés.
-- **React Final Form** (v6.5.9) : Gestion avancée des formulaires.
-- **Axios** (v1.7.9) : Appels API simplifiés.
-- **Tailwind CSS** (v3.4.16) : Gestion des styles pour un design responsive.
+### `npm start`
 
-### Backend
-- **Node.js** : Environnement pour exécuter JavaScript côté serveur.
-- **Express.js** (v4.21.1) : Framework pour construire l'API REST.
-- **MongoDB** (v6.10.0) : Base de données NoSQL pour stocker les données sur les formations.
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
----
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-## Fonctionnalités
+### `npm test`
 
-- **Recherche avancée** : Filtres et recherche par mots-clés, mention, alterance et région.
-- **Catalogue complet** : Présentation détaillée des formations (description, prérequis, etc.).
-- **Mode Admin** : Ajouter, modifier ou supprimer des formations via une interface dédiée.
-- **Responsive** : Utilisable sur desktop, tablette, et mobile.
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
----
+### `npm run build`
 
-### Prérequis pour l'installation
-- **Node.js** (v16 ou supérieur)
-- **npm** ou **yarn**
-- **MongoDB** (local ou cloud)
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
