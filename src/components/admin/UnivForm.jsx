@@ -24,6 +24,8 @@ function UnivForm() {
         dispatch(stopEdit());
     }
 
+    console.log(initialValues);
+
     return (
         <Dialog open={true} onClose={handleExit}>
             <DialogTitle sx={{ textAlign: 'center' }}>Modifier une Université</DialogTitle>

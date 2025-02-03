@@ -6,6 +6,7 @@ import UnivForm from "./UnivForm";
 import { selectEdit } from "../../features/admin/adminSelector";
 import { loadFormations } from "../../features/formation/formationAsyncAction";
 import { selectLoading } from "../../features/formation/formationSelector";
+import { loadMasters } from "../../features/admin/adminAsyncAction";
 
 function AccueilAdmin() {
     const dispatch = useDispatch();
@@ -14,6 +15,7 @@ function AccueilAdmin() {
 
     useEffect(()=>
     {
+        dispatch(loadMasters());
         dispatch(loadFormations());
     }, [dispatch])
 
