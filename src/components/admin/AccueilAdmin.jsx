@@ -21,7 +21,7 @@ function AccueilAdmin() {
 
     return(
         <main>
-            <Typography variant="h2" component='h1' sx={{ mx:'auto', mb:'1.25rem'}}>Gestion des universités</Typography>
+            <Typography variant="h2" component='h1' sx={{ mx:'auto', mb:'1.25rem'}}>Gestion des formations</Typography>
         {
             loading
             ?

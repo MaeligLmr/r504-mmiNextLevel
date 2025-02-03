@@ -15,4 +15,18 @@ export const selectInitialFormValues = createSelector(
             return null;
         }
     }
-)
+) 
+
+/* export const selectInitialFormValues = createSelector(
+    [selectFormations, selectEditID, selectMasters],
+    (univs, id, masters) => {
+        if (id) {
+            const formation = univs.find((univ) => id === univ._id);
+            const master = masters.find((master) => master._id == formation.masters._idMaster);
+            const initialValues = {...formation, master: master};
+            return initialValues;       
+        } else {
+            return null;
+        }
+    }
+) */

@@ -1,15 +1,18 @@
-import { Button, Dialog, DialogContent, DialogTitle, Grid2, TextField } from '@mui/material';
+import { Button, Dialog, DialogContent, DialogTitle, Grid2, TextField, Typography } from '@mui/material';
 import { Form, Field } from 'react-final-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectEditID, selectFormations, selectInitialFormValues } from '../../features/admin/adminSelector';
+import { selectEditID, selectFormations, selectInitialFormValues, selectMasters } from '../../features/admin/adminSelector';
 import { updateFormation } from '../../features/admin/adminAsyncAction';
 import { stopEdit } from '../../features/admin/adminSlice';
 import arrayMutators from 'final-form-arrays'
 import { FieldArray } from 'react-final-form-arrays'
+import { useEffect } from 'react';
 
 function UnivForm() {
     const univs = useSelector(selectFormations);
     const editID = useSelector(selectEditID);
+    const masters = useSelector(selectMasters);
+    var master;
 
     // On charge le formulaire avec les valeurs de l'établissement sélectionné
     const initialValues = useSelector(selectInitialFormValues);
@@ -24,12 +27,16 @@ function UnivForm() {
         dispatch(stopEdit());
     }
 
-    console.log(initialValues);
+    const getMaster = () => {
+        return masters.find((master) => master._id == initialValues.masters._idMaster);
+    };
 
     return (
         <Dialog open={true} onClose={handleExit}>
-            <DialogTitle sx={{ textAlign: 'center' }}>Modifier une Université</DialogTitle>
+            <DialogTitle sx={{ textAlign: 'center' }}>Modifier une Formation</DialogTitle>
             <DialogContent>
+                <Typography sx={{ fontSize: "1rem" }}>Mention : {getMaster().mention}</Typography>
+                <Typography sx={{ fontSize: "1rem" }}>Université : {initialValues.nom}</Typography>
                 <Form
                     initialValues={initialValues}
                     onSubmit={handleSubmit}
@@ -40,37 +47,7 @@ function UnivForm() {
                             mutators: { push, pop }
                         } }) => (
                         <form onSubmit={handleSubmit}>
-                            <Grid2 container sx={{ gap: '20px', marginTop: '10px' }}>
-                                {/* Nom de l'établissement */}
-                                <Field
-                                    name='nom'
-                                    render={({ input, meta }) => (
-                                        <TextField
-                                            {...input}
-                                            variant="outlined"
-                                            label="Nom"
-                                            fullWidth
-                                            value={input.value}
-                                        />
-                                    )}
-                                >
-                                </Field>
-
-                                {/* Site Web de l'établissement */}
-                                <Field
-                                    name='urlSite'
-                                    render={({ input, meta }) => (
-                                        <TextField
-                                            {...input}
-                                            variant="outlined"
-                                            label="URL du site"
-                                            fullWidth
-                                            value={input.value}
-                                        />
-                                    )}
-                                >
-                                </Field>
-
+                            <Grid2 container sx={{ gap: '20px', marginTop: '30px' }}>
                                 {/* Ville */}
                                 <Field
                                     name='ville'
@@ -100,6 +77,43 @@ function UnivForm() {
                                     )}
                                 >
                                 </Field>
+
+                                {/* Site Web de la mention */}
+                                <Field
+                                    name='masters.urlMaster'
+                                    render={({ input, meta }) => (
+                                        <TextField
+                                            {...input}
+                                            variant="outlined"
+                                            label="URL du Master"
+                                            fullWidth
+                                            value={input.value}
+                                        />
+                                    )}
+                                >
+                                </Field>
+
+                                {initialValues
+                                    .masters
+                                    .parcours
+                                    .map((parcours) => {
+                                        return (
+                                            <Field
+                                                //name='masters.parcours.nomParcours'
+                                                name='masters.parcours.nomParcours'
+                                                render={({ input, meta }) => (
+                                                    <TextField
+                                                        {...input}
+                                                        variant="outlined"
+                                                        label="Nom du Parcours"
+                                                        fullWidth
+                                                        value={input.value}
+                                                    />
+                                                )}>
+                                            </Field>
+                                        )
+                                    }
+                                    )}
 
                                 <FieldArray name={"masters"}>
                                     {({ fields }) => (

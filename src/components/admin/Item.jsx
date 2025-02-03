@@ -9,7 +9,7 @@ function Item({ formation }) {
     function displayMasterName(){
         const master = masters.find((master) => master._id == formation.masters._idMaster);
         return (
-            <Typography sx={{ fontSize: "1rem" }}>{master.mention}</Typography>
+            <Typography sx={{ fontSize: "1rem", maxWidth: "500px", overflow:"hidden", whiteSpace:"nowrap", textOverflow: "ellipsis" }}>{master.mention}</Typography>
         )
     };
 
