@@ -3,19 +3,19 @@ import { selectFormations } from "../../features/admin/adminSelector";
 import { List } from "@mui/material";
 import Item from "./Item";
 
-function UnivList() {
-    const univs = useSelector(selectFormations);
+function FormationsList() {
+    const formations = useSelector(selectFormations);
     const dispatch = useDispatch();
 
     return (
         <List>
             {
-                univs.map((university, id) =>
-                    <Item key={id} univ={university}/>
+                formations.map((formation, id) =>
+                    <Item key={id} formation={formation}/>
                 )
             }
         </List>
     )
 }
 
-export default UnivList;
+export default FormationsList;

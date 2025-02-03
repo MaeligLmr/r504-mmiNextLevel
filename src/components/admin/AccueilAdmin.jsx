@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import UnivList from "./UnivList";
+import FormationsList from "./FormationsList";
 import { Typography } from "@mui/material";
 import UnivForm from "./UnivForm";
 import { selectEdit } from "../../features/admin/adminSelector";
@@ -26,7 +26,7 @@ function AccueilAdmin() {
             <p>Chargement</p>
             
             :
-            <UnivList/>
+            <FormationsList/>
         }
         {
             editing
