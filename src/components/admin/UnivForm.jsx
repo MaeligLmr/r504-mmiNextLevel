@@ -94,6 +94,9 @@ function UnivForm() {
                                 >
                                 </Field>
 
+                                {/* Liste des parcours */}
+                                <Typography sx={{ fontSize: "1rem" }}>Liste des parcours</Typography>
+
                                 {initialValues
                                     .masters
                                     .parcours
@@ -116,12 +119,25 @@ function UnivForm() {
                                     }
                                     )}
 
-                                <FieldArray name={"masters"}>
+                                {/* Ajouter un parcours */}
+                                <Field
+                                    name='newParcours'
+                                    render={({ input, meta }) => (
+                                        <TextField
+                                            variant="outlined"
+                                            label="Nouveau parcours"
+                                            fullWidth
+                                        />
+                                    )}
+                                >
+                                </Field>
+
+                                {/* <FieldArray name={"masters"}>
                                     {({ fields }) => (
                                         <div>
                                             {fields.map((name, id) => {
                                                 <div key={name}>
-                                                    {/* ID du master */}
+                                                    {/* ID du master
                                                     <Field
                                                         name='_idMaster'
                                                         render={({ input, meta }) => (
@@ -135,7 +151,7 @@ function UnivForm() {
                                                         )}
                                                     />
 
-                                                    {/* URL du master */}
+                                                    {/* URL du master
                                                     <Field
                                                         name='urlMaster'
                                                         render={({ input, meta }) => (
@@ -149,7 +165,7 @@ function UnivForm() {
                                                         )}
                                                     />
 
-                                                    {/* Bouton de suppression du master */}
+                                                    {/* Bouton de suppression du master
                                                     <span
                                                         onClick={() => fields.remove(id)}
                                                         style={{ cursor: 'pointer' }}
@@ -171,7 +187,7 @@ function UnivForm() {
                                                 // )}
                                             })}
 
-                                            {/* Boutons d'ajout et de suppression de masters */}
+                                            {/* Boutons d'ajout et de suppression de masters
                                             <div className="buttons">
                                                 <button
                                                     type="button"
@@ -185,7 +201,7 @@ function UnivForm() {
                                             </div>
                                         </div>
                                     )}
-                                </FieldArray>
+                                </FieldArray> */}
 
                                 {/* Boutons d'action */}
                                 <Button onClick={handleExit} aria-label='annuler'>Annuler</Button>
