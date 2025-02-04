@@ -30,6 +30,7 @@ function UnivForm() {
     const getMaster = () => {
         return masters.find((master) => master._id == initialValues.masters._idMaster);
     };
+    console.log(initialValues)
 
     return (
         <Dialog open={true} onClose={handleExit}>
@@ -96,11 +97,11 @@ function UnivForm() {
                                 {initialValues
                                     .masters
                                     .parcours
-                                    .map((parcours) => {
+                                    .map((parcours, id) => {
                                         return (
                                             <Field
-                                                //name='masters.parcours.nomParcours'
-                                                name='masters.parcours.nomParcours'
+                                                name={`masters.parcours[${id}].nomParcours`}
+                                                key={id}
                                                 render={({ input, meta }) => (
                                                     <TextField
                                                         {...input}
