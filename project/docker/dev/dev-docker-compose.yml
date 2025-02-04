@@ -1,0 +1,61 @@
+name: 'NextLevel'
+
+
+configs:
+  webapp-config:
+    file: ../../../app/src/config.js
+
+services:
+  db: 
+    image: mongo:6
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: 1234
+      MONGO_INITDB_DATABASE: nextLevel
+    
+    restart: always
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 20s
+    volumes:
+      - mongodb_data:/data/db
+      - mongodb_config:/data/configdb
+
+    networks:
+      - back
+
+  api:
+    image: mmi/next-level
+    build: ../
+    depends_on:
+      db:
+        condition: service_healthy
+   
+    restart: always
+    networks:
+      - back
+    ports:
+      - 5005:5000
+
+  
+  webapp:
+    image: node:22
+    profiles:
+      - front-builder
+    working_dir: /usr/src/app
+    volumes:
+      - ./src/app:/usr/src/app
+      - app-static:/usr/src/app/build
+    command: bash -c "npm install && npm run build"
+    
+
+networks:
+  back:
+
+volumes:
+  mongodb_config:
+  mongodb_data:
+  app_static:

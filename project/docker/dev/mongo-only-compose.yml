@@ -1,0 +1,20 @@
+name: 'NextLevel-dev'
+
+services:
+  db: 
+    image: mongo:6
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: 1234
+      MONGO_INITDB_DATABASE: nextLevel
+    volumes:
+      - db-config:/data/configdb
+      - db-data:/data/db
+      - ./dbInit:/docker-entrypoint-initdb.d:ro
+    ports:
+      - 127.0.0.1:27017:27017
+    network_mode: bridge
+
+volumes:
+  db-config:
+  db-data:
