@@ -16,7 +16,7 @@ function Item({ formation }) {
     const dispatch = useDispatch();
 
     const handleEdit = () => {
-        dispatch(startEdit(formation._id));
+        dispatch(startEdit(formation.idFormation));
     };
 
     return (

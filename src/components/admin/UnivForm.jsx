@@ -6,13 +6,13 @@ import { updateFormation } from '../../features/admin/adminAsyncAction';
 import { stopEdit } from '../../features/admin/adminSlice';
 import arrayMutators from 'final-form-arrays'
 import { FieldArray } from 'react-final-form-arrays'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 function UnivForm() {
     const univs = useSelector(selectFormations);
     const editID = useSelector(selectEditID);
     const masters = useSelector(selectMasters);
-    var master;
+    const [master, setMaster] = useState(null);
 
     // On charge le formulaire avec les valeurs de l'établissement sélectionné
     const initialValues = useSelector(selectInitialFormValues);
@@ -27,11 +27,16 @@ function UnivForm() {
         dispatch(stopEdit());
     }
 
+    useEffect(()=>{
+        setMaster(masters.find((master) => master._id === initialValues.masters._idMaster));
+        console.log(master)
+    }, [initialValues, masters, selectInitialFormValues])
+
     const getMaster = () => {
         return masters.find((master) => master._id == initialValues.masters._idMaster);
-    };
-    console.log(initialValues)
-    console.log(typeof initialValues.masters.parcours[0].alternancePossible)
+    }; 
+
+    console.log();
 
     return (
         <Dialog open={true} onClose={handleExit}>
@@ -153,7 +158,7 @@ function UnivForm() {
                                     )}
 
                                 {/* Ajouter un parcours */}
-                                <Field
+                                {/* <Field
                                     name='newParcours'
                                     render={({ input, meta }) => (
                                         <TextField
@@ -163,14 +168,14 @@ function UnivForm() {
                                         />
                                     )}
                                 >
-                                </Field>
+                                </Field> */}
 
-                                {/* <FieldArray name={"masters"}>
+                                <FieldArray name={"masters"}>
                                     {({ fields }) => (
                                         <div>
                                             {fields.map((name, id) => {
                                                 <div key={name}>
-                                                    {/* ID du master
+                                                    {/* ID du master*/}
                                                     <Field
                                                         name='_idMaster'
                                                         render={({ input, meta }) => (
@@ -184,7 +189,7 @@ function UnivForm() {
                                                         )}
                                                     />
 
-                                                    {/* URL du master
+                                                    {/* URL du master*/}
                                                     <Field
                                                         name='urlMaster'
                                                         render={({ input, meta }) => (
@@ -198,7 +203,7 @@ function UnivForm() {
                                                         )}
                                                     />
 
-                                                    {/* Bouton de suppression du master
+                                                    {/* Bouton de suppression du master*/}
                                                     <span
                                                         onClick={() => fields.remove(id)}
                                                         style={{ cursor: 'pointer' }}
@@ -220,7 +225,7 @@ function UnivForm() {
                                                 // )}
                                             })}
 
-                                            {/* Boutons d'ajout et de suppression de masters
+                                            {/* Boutons d'ajout et de suppression de masters*/}
                                             <div className="buttons">
                                                 <button
                                                     type="button"
@@ -234,7 +239,7 @@ function UnivForm() {
                                             </div>
                                         </div>
                                     )}
-                                </FieldArray> */}
+                                </FieldArray>
 
                                 {/* Boutons d'action */}
                                 <Button onClick={handleExit} aria-label='annuler'>Annuler</Button>

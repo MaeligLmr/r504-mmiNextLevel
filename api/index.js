@@ -94,20 +94,30 @@ async function findMasters() {
 }
 
 // Récupérations des FORMATIONS (une mention pour une université)
-app.get('/api/formations', (req, res)=> {
-    getMentionByUniv().then(formations=> res.json(formations));
+app.get('/api/formations', (req, res) => {
+  getMentionByUniv().then(formations => res.json(formations));
 });
 
 //fonction qui éclate les tableaux des masters, pour avoir un document par master
-async function getMentionByUniv(){
+async function getMentionByUniv() {
   const result = await client
-  .db('test')
-  .collection('etablissements')
-  .aggregate([
-    {
-      $unwind: "$masters"
-    }
-  ]).toArray();
+    .db('test')
+    .collection('etablissements')
+    .aggregate([{
+        $unwind: "$masters"
+      },
+      {
+        $addFields: {
+          idFormation: {
+            $concat: [{
+              "$toString": "$masters._idMaster"
+            }, {
+              "$toString": "$_id"
+            }]
+          }
+        }
+      }
+    ]).toArray();
 
   return result;
 }
@@ -181,13 +191,13 @@ app.put('/api/etablissements/update/etablissement/:idUniv', async (req, res) => 
   try {
     // Mise à jour de l'établissement
     updateEtablissement(objectId, req.body)
-    .then(nouvelEtablissement => {
-      if (!nouvelEtablissement) {
-        res.status(404).json(createError('Document introuvable.'));
-      } else {
-        res.status(200).json(nouvelEtablissement);
-      }
-    });
+      .then(nouvelEtablissement => {
+        if (!nouvelEtablissement) {
+          res.status(404).json(createError('Document introuvable.'));
+        } else {
+          res.status(200).json(nouvelEtablissement);
+        }
+      });
 
   } catch (e) {
     res.status(404).json(createError(e.message));
@@ -205,7 +215,7 @@ async function updateEtablissement(univId, datas) {
   } = parseEntryBody(req.body);*/ //vérification des données en entrée à faire plus tard
 
   // On ne remplace pas l'ID du document
-  if(datas.hasOwnProperty('_id')){
+  if (datas.hasOwnProperty('_id')) {
     delete datas._id;
   }
 
