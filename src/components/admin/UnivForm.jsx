@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogContent, DialogTitle, Grid2, TextField, Typography } from '@mui/material';
+import { Button, Dialog, DialogContent, DialogTitle, FormControlLabel, Grid2, Switch, TextField, Typography } from '@mui/material';
 import { Form, Field } from 'react-final-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectEditID, selectFormations, selectInitialFormValues, selectMasters } from '../../features/admin/adminSelector';
@@ -31,6 +31,7 @@ function UnivForm() {
         return masters.find((master) => master._id == initialValues.masters._idMaster);
     };
     console.log(initialValues)
+    console.log(typeof initialValues.masters.parcours[0].alternancePossible)
 
     return (
         <Dialog open={true} onClose={handleExit}>
@@ -99,19 +100,38 @@ function UnivForm() {
                                     .parcours
                                     .map((parcours, id) => {
                                         return (
-                                            <Field
-                                                name={`masters.parcours[${id}].nomParcours`}
-                                                key={id}
-                                                render={({ input, meta }) => (
-                                                    <TextField
-                                                        {...input}
-                                                        variant="outlined"
-                                                        label="Nom du Parcours"
-                                                        fullWidth
-                                                        value={input.value}
-                                                    />
-                                                )}>
-                                            </Field>
+                                            <>
+                                                <Field
+                                                    name={`masters.parcours[${id}].nomParcours`}
+                                                    key={id}
+                                                    render={({ input, meta }) => (
+                                                        <TextField
+                                                            {...input}
+                                                            variant="outlined"
+                                                            label="Nom du Parcours"
+                                                            fullWidth
+                                                            value={input.value}
+                                                        />
+                                                    )}>
+                                                </Field>
+                                                <Field
+                                                    key={id + 1}
+                                                    name={`masters.parcours[${id}].alternancePossible`}
+                                                    render={({ input, meta }) => (
+                                                        <FormControlLabel
+                                                            control={
+                                                                {
+                                                                    ...parcours.alternancePossible
+                                                                        ?
+                                                                        <Switch defaultChecked />
+                                                                        :
+                                                                        <Switch />
+                                                                }
+                                                            }
+                                                            label="Alternance" />
+                                                    )}>
+                                                </Field>
+                                            </>
                                         )
                                     }
                                     )}
