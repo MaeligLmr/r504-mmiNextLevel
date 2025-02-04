@@ -54,8 +54,8 @@ function FormationList() {
                     <FilterForm onFilter={setFilters} />
 
                     <ul className='col-span-3'>
-                        {filteredFormations.map((formation) =>
-                            <FormationRow key={formation._id} formation={formation}></FormationRow>
+                        {filteredFormations.map((formation, id) =>
+                            <FormationRow key={id} formation={formation}></FormationRow>
                         )}
                     </ul>
                 </div>
@@ -64,8 +64,8 @@ function FormationList() {
                     <FilterForm onFilter={setFilters} />
 
                     <ul>
-                        {filteredFormations.map((formation) =>
-                            <FormationRow key={formation._id} formation={formation}></FormationRow>
+                        {filteredFormations.map((formation, id) =>
+                            <FormationRow key={id} formation={formation}></FormationRow>
                         )}
                     </ul>
                 </>
