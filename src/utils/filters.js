@@ -36,6 +36,8 @@ export const filterIncludes = (property) => (search) => (obj) => {
       throw new Error(`The value of property ${property} should be an array.`);
     }
   
+    console.log(propertyValue);
+    
     // Vérifie si le terme de recherche est inclus dans la propriété (insensible à la casse)
     return propertyValue.some((item) => item.toLowerCase().includes(search.toLowerCase()));
   };

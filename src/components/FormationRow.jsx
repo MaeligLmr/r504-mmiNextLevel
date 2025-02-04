@@ -6,7 +6,7 @@ function FormationRow({ formation }) {
     const masterList = useSelector(selectMasters);
     const idMaster = formation.masters._idMaster;
     const master = masterList.filter((master) => idMaster === master._id);
-
+    
     return (
         <>
             <li className="border-black border-2 shadow-sm p-8 m-6 rounded-lg">

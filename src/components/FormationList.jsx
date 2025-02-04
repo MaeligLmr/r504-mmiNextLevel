@@ -14,23 +14,25 @@ function FormationList() {
     //console.log(formationList);
 
     const filteredFormations = useMemo(() => {
-        if (filters.length === 0) return formationList; 
+        if (filters.length === 0) return formationList;
         const filterFunc = (formation) => filters.every((filter) => {
-            if(filter.type === "master")
-                {
-                    return formation.masters.some((master) => filter.function(master))
-                } else if (filter.type === "masterKeywords"){
-                    const filteredMasters = masterList.filter((master) => filter.function(master));
-                    console.log(filteredMasters);
-                    const filteredMastersId = filteredMasters.map((master) => master._idMaster);
-                    filteredMastersId.every((masterId) =>{
-                            return formation.masters.some((master) => filterIncludes('_idMaster')(masterId)(master))
+            if (filter.type === "master") {
+                //filtre les formations en fonction de leur id master qui doit être celui donné dans le filtre
+                return formation.masters.some((master) => filter.function(master))
+            } else if (filter.type === "masterKeywords") {
+                //filtre les formations en fonction des keyword de la formation rattachée grâce à l'id
+                const filteredMasters = masterList.filter((master) => filter.function(master));
+                console.log(filteredMasters);
+                const filteredMastersId = filteredMasters.map((master) => master._idMaster);
+                filteredMastersId.every((masterId) => {
+                    return formation.masters.some((master) => filterIncludes('_idMaster')(masterId)(master))
 
-                    })
-                }
-                else {
-                    return filter.function(formation)
-                }});
+                })
+            }
+            else {
+                return filter.function(formation)
+            }
+        });
         return formationList.filter(filterFunc);
     }, [formationList, filters]);
 
