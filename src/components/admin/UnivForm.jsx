@@ -131,6 +131,19 @@ function UnivForm() {
                                                             label="Alternance" />
                                                     )}>
                                                 </Field>
+                                                <Field
+                                                    name={`masters.parcours[${id}].urlParcours`}
+                                                    key={id + 2}
+                                                    render={({ input, meta }) => (
+                                                        <TextField
+                                                            {...input}
+                                                            variant="outlined"
+                                                            label="URL du Parcours"
+                                                            fullWidth
+                                                            value={input.value}
+                                                        />
+                                                    )}>
+                                                </Field>
                                             </>
                                         )
                                     }
