@@ -7,12 +7,15 @@ const {
 let client; //on initialise le client ici pour que toutes les fonctions y aient accès
 
 const app = express();
+const cors = require('cors');
+
+app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
 // Gestion des en-têtes HTTP
 app.use((req, res, next) => {
-  res.append('Access-Control-Allow-Origin', 'http://localhost:3000'); // A CHANGER --> uniquement pour le local
+  // res.append('Access-Control-Allow-Origin', 'http://localhost:3000'); // A CHANGER --> uniquement pour le local
   res.append('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
   res.append('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   next();
@@ -174,7 +177,7 @@ async function findMasterById(id) {
 
 // Requête de modification du document d'un établissement dont l'ID est passée en paramètre
 // pour ajouter une formation à une université
-app.put('/api/etablissements/update/etablissement/:idUniv', async (req, res) => {
+app.put('/api/formations/update/etablissement/:idUniv', async (req, res) => {
   // Récupération et formatage de l'ID de l'établissement
   const objectId = new ObjectId(req.params.idUniv);
 

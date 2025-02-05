@@ -30,7 +30,7 @@ function Accueil() {
                 <h1>MMI NEXT LEVEL 😊</h1>
             </header>
             <main>
-                <div className="h-screen w-screen">
+                <div className="h-screen">
                     <button onClick={scrollDown} aria-label="scroll down" className="w-7 h-5 absolute bottom-2 left-1/2 rounded-full bg-black border border-white"></button>
                 </div>
                 {error && (

@@ -1,54 +1,40 @@
 import React from "react";
-import { selectFormations } from '../features/formation/formationSelector';
+import { selectFormations, selectMasters } from '../features/formation/formationSelector';
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { all } from "axios";
+import { useNavigate } from "react-router-dom";
 
-function Formation({ formation }){
+function Formation(){
+    const location = useLocation();
+    const navigate = useNavigate();
+    const formation = location.state?.formation;
+    const masterList = useSelector(selectMasters);
+    const idMaster = formation.masters._idMaster;
+    const master = masterList.filter((master) => idMaster === master._id);
 
     return(
         <>
-            <div className="border-black border-2 shadow-sm p-8 m-6 rounded-lg">
-                <h3>{formation.nom}</h3>
-                <h4>
-                    {formation.masters.map((allParcours)=>{
-                        allParcours.parcours.map((nom)=>{
-                            return nom.nomParcours;
-                        })
-                    })}
-                </h4>
-                <p>{formation.urlSite}</p>
-                <ul>
-                    <li>{formation.region}</li>
-                    <li>{formation.ville}</li>
-                    <li>
-                        {formation.masters.map((allParcours)=>{
-                            allParcours.parcours.map((annees)=>{
-                                return annees.anneesParcours;
-                            })
-                        })}
-                    </li>
-                    <li>
-                        {formation.masters.map((allParcours)=>{
-                            allParcours.parcours.map((alternance)=>{
-                                return alternance.alternancePossible;
-                            })
-                        })}
-                    </li>
-                    <li>
-                        {formation.masters.map((allParcours)=>{
-                            allParcours.parcours.map((distanciel)=>{
-                                return distanciel.enDistanciel;
-                            })
-                        })}
-                    </li>
-                    <li>
-                        {formation.masters.map((allParcours)=>{
-                            allParcours.parcours.map((urlParcours)=>{
-                                return urlParcours.urlParcours;
-                            })
-                        })}
-                    </li>
+            <div className="border-2 border-[#F39200] shadow-[-6px_6px_0_0_#F39200] px-12 py-6 my-6 mx-20 lg:mx-32 xl:mx-64 md:grid md:gap-5">
+                <button onClick={()=> navigate(-1)} type="button" class="top-0 right-0 mt-2 mr-2 p-2">
+                    <img src="/img/fleche_retour.svg" alt="Retour" className="h-6 -rotate-90" />
+                </button>
+                <h3 className="text-xl font-bold text-gray-900">{formation.nom}</h3>
+                <h4 className="text-lg font-semibold text-gray-700">Mention : {master[0].mention}</h4>
+                <a className="font-medium text-blue-600 dark:text-blue-500 hover:underline" href={`${formation.urlSite}`}>{formation.urlSite}</a>
+                <ul className="md:grid md:grid-cols-2 md:gap-5">
+                    <li>Région : {formation.region}</li>
+                    <li>Ville : {formation.ville}</li>
+                    {formation.masters.parcours.map((allParcours, id) => (
+                        <div key={id}>
+                            <p className="underline font-bold text-lg">Parcours : </p>
+                            <p><strong>{allParcours.nomParcours}</strong></p>
+                            <a className="font-medium text-blue-600 dark:text-blue-500 hover:underline" href={`${allParcours.urlParcours}`}>{allParcours.urlParcours}</a>
+                            <p>Alternance : {allParcours.alternancePossible ? "Possible" : "Impossible"}</p>
+                            <p>Distanciel : {allParcours.distanciel ? "Possible" : "Impossible"}</p>
+                        </div>
+                    ))}
                 </ul>
-                <button type="button" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Retour</button>
             </div>
         </>
     )

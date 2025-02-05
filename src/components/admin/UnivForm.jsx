@@ -20,6 +20,7 @@ function UnivForm() {
 
     // Fonction d'enregistrement des modifications
     const handleSubmit = async (values, form) => {
+        console.log(values);
         dispatch(updateFormation(values));
     };
 
@@ -30,8 +31,8 @@ function UnivForm() {
     const getMaster = () => {
         return masters.find((master) => master._id == initialValues.masters._idMaster);
     };
-    console.log(initialValues)
-    console.log(typeof initialValues.masters.parcours[0].alternancePossible)
+    // console.log(initialValues)
+    // console.log(typeof initialValues.masters.parcours[0].alternancePossible)
 
     return (
         <Dialog open={true} onClose={handleExit}>
@@ -153,7 +154,7 @@ function UnivForm() {
                                     )}
 
                                 {/* Ajouter un parcours */}
-                                <Field
+                                {/* <Field
                                     name='newParcours'
                                     render={({ input, meta }) => (
                                         <TextField
@@ -163,7 +164,7 @@ function UnivForm() {
                                         />
                                     )}
                                 >
-                                </Field>
+                                </Field> */}
 
                                 {/* <FieldArray name={"masters"}>
                                     {({ fields }) => (
