@@ -26,14 +26,14 @@ function Accueil() {
 
     return (
         <>
-            <header className="flex items-center p-8 sticky top-0 z-100">
-            <div class="logo text-xl font-bold max-w-16 bg-[#5E3472] p-3 rounded absolute right-4 top-4 z-5"><img src="/img/logo_menu.png" alt="logo MMINextLevel"/></div>
-                
+            <header className="flex h-auto items-center px-8 py-4 sticky top-4 z-50 bg-[#5E3472] rounded-md mx-4">
+                <img className="logo w-12" src="/img/logo_menu.png" alt="logo MMINextLevel" />
             </header>
             <main>
-                <div className="h-screen max-h-screen bg-center bg-cover w-full">
+                <div className="banner h-screen bg-center bg-cover w-full relative">
+                    <h1 className="absolute top-1/3 right-2/4 text-4xl translate-x-1/2">Master après MMI</h1>
                     <button onClick={scrollDown} aria-label="scroll down" className=" absolute bottom-2 left-1/2 bg-transparent">
-                        <img width="100" height="100" src="/img/fleche_bas.svg" alt="flèche vers le bas"/>
+                        <img width="100" height="100" src="/img/fleche_bas.svg" alt="flèche vers le bas" />
                     </button>
                 </div>
                 {error && (

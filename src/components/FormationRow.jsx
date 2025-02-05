@@ -24,7 +24,7 @@ function FormationRow({ formation }) {
     return (
 
 
-            <li  className={`formation m-6 p-4 border-2  flex flex-col items-start lg:flex-row lg:items-center`}>
+            <li  className={`formation mb-6 mx-4 p-4 border-2  flex flex-col items-start lg:flex-row lg:items-center`}>
                 <section className="my-6">
                     <h3>Mention : {master[0].mention}</h3>
                     <p>Etablissement : {formation.nom}</p>
