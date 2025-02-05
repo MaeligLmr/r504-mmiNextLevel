@@ -12,7 +12,6 @@ function UnivForm() {
     const univs = useSelector(selectFormations);
     const editID = useSelector(selectEditID);
     const masters = useSelector(selectMasters);
-    const [master, setMaster] = useState(null);
 
     // On charge le formulaire avec les valeurs de l'établissement sélectionné
     const initialValues = useSelector(selectInitialFormValues);
@@ -27,16 +26,9 @@ function UnivForm() {
         dispatch(stopEdit());
     }
 
-    useEffect(()=>{
-        setMaster(masters.find((master) => master._id === initialValues.masters._idMaster));
-        console.log(master)
-    }, [initialValues, masters, selectInitialFormValues])
-
     const getMaster = () => {
         return masters.find((master) => master._id == initialValues.masters._idMaster);
-    }; 
-
-    console.log();
+    };
 
     return (
         <Dialog open={true} onClose={handleExit}>
@@ -103,7 +95,7 @@ function UnivForm() {
                                 {/* Liste des parcours */}
                                 <Typography sx={{ fontSize: "1rem" }}>Liste des parcours</Typography>
 
-                                {initialValues
+                                {/* {initialValues
                                     .masters
                                     .parcours
                                     .map((parcours, id) => {
@@ -155,7 +147,7 @@ function UnivForm() {
                                             </>
                                         )
                                     }
-                                    )}
+                                    )} */}
 
                                 {/* Ajouter un parcours */}
                                 {/* <Field
@@ -170,40 +162,40 @@ function UnivForm() {
                                 >
                                 </Field> */}
 
-                                <FieldArray name={"masters"}>
+                                <FieldArray name={"parcours"}>
                                     {({ fields }) => (
                                         <div>
                                             {fields.map((name, id) => {
                                                 <div key={name}>
-                                                    {/* ID du master*/}
+                                                    {/* nom du parcours*/}
                                                     <Field
-                                                        name='_idMaster'
+                                                        name={`${name}.nomParcours`}
                                                         render={({ input, meta }) => (
                                                             <TextField
                                                                 {...input}
                                                                 variant="outlined"
-                                                                label="ID Master"
+                                                                label="Nom du parcours"
                                                                 fullWidth
                                                                 value={input.value}
                                                             />
                                                         )}
                                                     />
 
-                                                    {/* URL du master*/}
+                                                    {/* Alternance possible ou non */}
                                                     <Field
-                                                        name='urlMaster'
+                                                        name={`${name}.alternancePossible`}
                                                         render={({ input, meta }) => (
                                                             <TextField
                                                                 {...input}
                                                                 variant="outlined"
-                                                                label="URL Master"
+                                                                label="Alternance"
                                                                 fullWidth
                                                                 value={input.value}
                                                             />
                                                         )}
                                                     />
 
-                                                    {/* Bouton de suppression du master*/}
+                                                    {/* Bouton de suppression du parcours*/}
                                                     <span
                                                         onClick={() => fields.remove(id)}
                                                         style={{ cursor: 'pointer' }}
@@ -211,30 +203,15 @@ function UnivForm() {
                                                         ❌
                                                     </span>
                                                 </div>
-
-                                                // key={id}
-                                                // name={"urlMaster" + id}
-                                                // render={({ input, meta }) => (
-                                                //     <TextField
-                                                //         {...input}
-                                                //         variant="outlined"
-                                                //         label="URL du site"
-                                                //         fullWidth
-                                                //         value={master.urlMaster}
-                                                //     />
-                                                // )}
                                             })}
 
-                                            {/* Boutons d'ajout et de suppression de masters*/}
+                                            {/* Boutons d'ajout de parcours*/}
                                             <div className="buttons">
                                                 <button
                                                     type="button"
-                                                    onClick={() => push({ fields, undefined })}
+                                                    onClick={() => push('')}
                                                 >
-                                                    Ajouter un master
-                                                </button>
-                                                <button type="button" onClick={() => pop(fields)}>
-                                                    Supprimer un master
+                                                    Ajouter un parcours
                                                 </button>
                                             </div>
                                         </div>
