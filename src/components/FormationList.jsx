@@ -14,20 +14,25 @@ function FormationList() {
     //console.log(formationList);
 
     const filteredFormations = useMemo(() => {
+        console.log(filters);
+        
         if (filters.length === 0) return formationList;
         const filterFunc = (formation) => filters.every((filter) => {
             if (filter.type === "master") {
                 //filtre les formations en fonction de leur id master qui doit être celui donné dans le filtre
-                return formation.masters.some((master) => filter.function(master))
+                
+                return filter.function(formation.masters);
             } else if (filter.type === "masterKeywords") {
                 //filtre les formations en fonction des keyword de la formation rattachée grâce à l'id
                 const filteredMasters = masterList.filter((master) => filter.function(master));
                 console.log(filteredMasters);
-                const filteredMastersId = filteredMasters.map((master) => master._idMaster);
-                filteredMastersId.every((masterId) => {
-                    return formation.masters.some((master) => filterIncludes('_idMaster')(masterId)(master))
-
-                })
+                const filteredMastersId = filteredMasters.map((master) => master._id);
+                console.log(formation.masters);
+                
+                return filteredMastersId.some((masterId) => 
+                     
+                    filterIncludes('_idMaster')(masterId)(formation.masters)
+                );
             }
             else {
                 return filter.function(formation)

@@ -86,7 +86,7 @@ const FilterForm = ({ onFilter }) => {
                         Mention
                       </MenuItem>
                       {masterList.map((master, index) => (
-                        <MenuItem key={index} value={master._idMaster}>
+                        <MenuItem key={index} value={master._id}>
                           {master.mention}
                         </MenuItem>
                       ))}
