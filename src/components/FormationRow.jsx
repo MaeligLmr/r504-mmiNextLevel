@@ -9,7 +9,7 @@ function FormationRow({ formation }) {
     
     return (
         <>
-            <li className="border-black border-2 shadow-sm p-8 m-6 rounded-lg">
+            <li className="border-black border-2 shadow-sm p-8 rounded-lg">
                 <section className="my-6">
                     <h3>Mention : {master[0].mention}</h3>
                     <p>Etablissement : {formation.nom}</p>

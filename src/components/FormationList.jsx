@@ -4,6 +4,7 @@ import FilterForm from './FilterForm';
 import { useEffect, useMemo, useState } from 'react';
 import { selectFormations, selectMasters } from '../features/formation/formationSelector';
 import { filterIncludes, filterIncludesArray } from '../utils/filters';
+import { Grid } from '@mui/material';
 
 function FormationList() {
     const [filters, setFilters] = useState([]); // State pour les filtres actifs
@@ -52,30 +53,42 @@ function FormationList() {
 
 
     return (
-        <>
+        <Grid container spacing={3} sx={{ px: 3, py: 2 }}>
             {width > 1024
                 ?
-                <div className='grid grid-cols-4 px-8'>
-                    <FilterForm onFilter={setFilters} />
+                <>
+                    {/* Sidebar des filtres */}
+                    <Grid item xs={12} md={4}>
+                        <FilterForm onFilter={setFilters} />
+                    </Grid>
 
-                    <ul className='col-span-3'>
-                        {filteredFormations.map((formation, id) =>
-                            <FormationRow key={id} formation={formation}></FormationRow>
-                        )}
-                    </ul>
-                </div>
+                    {/* Liste des formations */}
+                    <Grid item xs={12} md={8}>
+                        <ul className="flex flex-col gap-6 mt-3">
+                            {filteredFormations.map((formation, id) => (
+                                <FormationRow key={id} formation={formation} />
+                            ))}
+                        </ul>
+                    </Grid>
+                </>
                 :
                 <>
+                {/* Filtres en haut sur mobile */}
+                <Grid item xs={12}>
                     <FilterForm onFilter={setFilters} />
+                </Grid>
 
-                    <ul>
-                        {filteredFormations.map((formation, id) =>
-                            <FormationRow key={id} formation={formation}></FormationRow>
-                        )}
+                {/* Liste en dessous */}
+                <Grid item xs={12}>
+                    <ul className="flex flex-col gap-6 mt-3">
+                        {filteredFormations.map((formation, id) => (
+                            <FormationRow key={id} formation={formation} />
+                        ))}
                     </ul>
-                </>
+                </Grid>
+            </>
             }
-        </>
+        </Grid>
     )
 }
 export default FormationList;
