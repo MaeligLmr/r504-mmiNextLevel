@@ -26,12 +26,17 @@ function Accueil() {
 
     return (
         <>
-            <header className="absolute top-2 left-1/2 translate-x-[-50%]">
-                <h1>MMI NEXT LEVEL 😊</h1>
+            <header className="flex items-center p-8 sticky top-0 z-100">
+            <div class="logo text-xl font-bold flex-1 max-w-16 bg-[#5E3472] p-3 rounded mr-5"><img src="/img/logo_menu.png" alt="logo MMINextLevel"/></div>
+                <button class="relative font-extrabold text-2xl bg-white p-4 text-[#5E3472] rounded-full shadow-[-6px_6px_0_0_#5E3472]">
+                    ?
+                </button>
             </header>
             <main>
-                <div className="h-screen">
-                    <button onClick={scrollDown} aria-label="scroll down" className="w-7 h-5 absolute bottom-2 left-1/2 rounded-full bg-black border border-white"></button>
+                <div className="h-screen w-full bg-cover bg-center">
+                    <button onClick={scrollDown} aria-label="scroll down" className=" absolute bottom-2 left-1/2 bg-transparent border">
+                        <img width="100" height="100" src="/img/fleche_bas.svg" alt="flèche vers le bas"/>
+                    </button>
                 </div>
                 {error && (
                     <Alert severity="error" sx={{ mb: 2, mx: 'auto', width: '80%' }}>
