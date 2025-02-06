@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import UnivList from "./UnivList";
-import { Typography } from "@mui/material";
+import FormationsList from "./FormationsList";
 import UnivForm from "./UnivForm";
-import { selectEdit, selectLoading } from "../../features/admin/adminSelector";
-import { load } from "../../features/admin/adminAsyncAction";
+import { selectEdit } from "../../features/admin/adminSelector";
+import { loadFormations } from "../../features/formation/formationAsyncAction";
+import { selectLoading } from "../../features/formation/formationSelector";
+import { loadMasters } from "../../features/admin/adminAsyncAction";
 
 function AccueilAdmin() {
     const dispatch = useDispatch();
@@ -13,19 +14,22 @@ function AccueilAdmin() {
 
     useEffect(()=>
     {
-        dispatch(load());
+        dispatch(loadMasters());
+        dispatch(loadFormations());
     }, [dispatch])
 
     return(
         <main>
-            <Typography variant="h2" component='h1' sx={{ mx:'auto', mb:'1.25rem'}}>Gestion des universités</Typography>
+            <header className="bg-[#5E3472] p-4 mb-4">
+                <h1 className="text-white text-2xl">Gestion des formations</h1>
+            </header>
         {
             loading
             ?
             <p>Chargement</p>
             
             :
-            <UnivList/>
+            <FormationsList/>
         }
         {
             editing

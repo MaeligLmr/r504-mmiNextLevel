@@ -18,3 +18,17 @@ export const selectInitialFormValues = (state)=>{
 }
 export const selectErrorLoad = (state) => state.formation.errors.apiErrorLoad;
 
+export const selectRegions = (state) => {
+    const allRegions = state.formation.formations.map((formation) => formation.region);
+
+    // Supprimer les doublons
+    const uniqueRegions = [...new Set(allRegions)];
+
+    // Retourner la liste des régions uniques
+    return uniqueRegions;
+}
+
+export const selectKeywords = (state) => {
+    const allKeywords =  state.formation.masters.flatMap((master) => master.competences);
+    return [... new Set(allKeywords)]
+}
