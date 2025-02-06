@@ -165,7 +165,7 @@ function UnivForm() {
                                 <FieldArray name={"parcours"}>
                                     {({ fields }) => (
                                         <div>
-                                            {fields.map((name, id) => {
+                                            {fields.map((name, id) => 
                                                 <div key={name}>
                                                     {/* nom du parcours*/}
                                                     <Field
@@ -203,13 +203,13 @@ function UnivForm() {
                                                         ❌
                                                     </span>
                                                 </div>
-                                            })}
+                                            )}
 
                                             {/* Boutons d'ajout de parcours*/}
                                             <div className="buttons">
                                                 <button
                                                     type="button"
-                                                    onClick={() => push('')}
+                                                    onClick={() => push({})}
                                                 >
                                                     Ajouter un parcours
                                                 </button>

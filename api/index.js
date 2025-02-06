@@ -87,7 +87,7 @@ app.get('/api/masters', (req, res) => {
 async function findMasters() {
   const result = await client
     .db("test")
-    .collection("masters")
+    .collection("masters-color")
     .find().toArray();
 
   return (result);
@@ -170,7 +170,7 @@ async function findMasterById(id) {
 
   const result = await client
     .db("test")
-    .collection("masters")
+    .collection("masters-color")
     .find({
       _id: objectId
     }).toArray();
