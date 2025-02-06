@@ -25,10 +25,10 @@ export const selectRegions = (state) => {
     const uniqueRegions = [...new Set(allRegions)];
 
     // Retourner la liste des régions uniques
-    return uniqueRegions;
+    return uniqueRegions.sort();
 }
 
 export const selectKeywords = (state) => {
     const allKeywords =  state.formation.masters.flatMap((master) => master.competences);
-    return [... new Set(allKeywords)]
+    return [... new Set(allKeywords)].sort()
 }
