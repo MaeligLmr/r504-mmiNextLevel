@@ -1,33 +1,36 @@
 import React from "react";
-import { selectFormations, selectMasters } from '../features/formation/formationSelector';
+import { selectMasters } from '../features/formation/formationSelector';
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 function FormationRow({ formation }) {
-    const formationList = useSelector(selectFormations);
     const masterList = useSelector(selectMasters);
-    console.log(formation)
 
     const borderColor = (parcours) => {
+        var className = '';
         switch (parcours) {
             case 'crea':
-                return '#5E3472';
+                className ='border-[#5E3472] shadow-[-6px_6px_0_0_#5E3472]';
+                break;
             case 'dev':
-                return '#86BBD8';
+                className ='border-[#87BBD8] shadow-[-6px_6px_0_0_#87BBD8]';
+                break;
             case 'strat':
-                return '#F39200';
+                className ='border-[#F39200] shadow-[-6px_6px_0_0_#F39200]';
+                break;
             default:
-                return '#000000';
+                className ='#FFFFFFF';
         }
+        console.log(className);
+        return className;
     }
     const idMaster = formation.masters._idMaster;
-    const master = masterList.filter((master) => idMaster === master._id);
+    const master = masterList.find((master) => idMaster === master._id);
+    console.log(master);
     return (
-
-
-            <li  className={`formation mb-6 mx-4 p-4 border-2  flex flex-col items-start lg:flex-row lg:items-center`}>
+           <li className={`formation m-6 p-4 border-2 ${borderColor(master.parcours)} flex flex-col items-start lg:flex-row lg:items-center`}>
                 <section className="my-6 px-2 lg:mx-8 lg:w-full">
-                    <h3 className="text-2xl">Mention {master[0].mention}</h3>
+                    <h3 className="text-2xl">Mention {master.mention}</h3>
                     <p className="italic text-xl mb-4"> {formation.nom}</p>
 
                     <ul className="mb-4 pt-4 border-t-2 border-dashed border-[#E8DEEC]">Parcours :

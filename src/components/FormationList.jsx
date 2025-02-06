@@ -15,7 +15,6 @@ function FormationList() {
     //console.log(formationList);
 
     const filteredFormations = useMemo(() => {
-        console.log(filters);
         
         if (filters.length === 0) return formationList;
         const filterFunc = (formation) => filters.every((filter) => {
