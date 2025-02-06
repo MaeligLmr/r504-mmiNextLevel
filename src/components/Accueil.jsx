@@ -32,7 +32,7 @@ function Accueil() {
             <main>
                 <div className="banner h-screen bg-center bg-cover w-full relative">
                     <h1 className="absolute top-1/3 right-2/4 text-6xl translate-x-1/2 text-[#5E3472] font-marker">Master après MMI</h1>
-                    <button onClick={scrollDown} aria-label="scroll down" className="animate-bounce absolute bottom-12 right-1/2 translate-x-1/2 bg-transparent">
+                    <button onClick={scrollDown} aria-label="scroll down" className="absolute bottom-12 right-1/2 translate-x-1/2 bg-transparent">
                         <img width="100" height="100" src="/img/fleche_bas.svg" alt="flèche vers le bas" />
                     </button>
                 </div>
@@ -48,7 +48,7 @@ function Accueil() {
                     (
                         <>
 
-                            <FormationList ></FormationList>
+                            <FormationList></FormationList>
                         </>
                     )
                 }
