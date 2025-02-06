@@ -7,7 +7,11 @@ module.exports = {
       extend: {
         backgroundImage: {
           'background': "url('/public/img/fond.png')"
-        }
+        },
+        fontFamily:{
+          'marker': "Permanent Marker"
+        },
+
       }, // Tu peux étendre les thèmes ici
   },
   plugins: [], // Tu peux ajouter des plugins ici

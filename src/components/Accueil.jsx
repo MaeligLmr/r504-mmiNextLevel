@@ -26,13 +26,13 @@ function Accueil() {
 
     return (
         <>
-            <header className="flex h-auto items-center px-8 py-4 sticky top-4 z-50 bg-[#5E3472] rounded-md mx-4">
+            <header className="flex h-auto items-center px-8 py-4 absolute top-4 right-0 left-0 z-50 bg-[#5E3472] rounded-md mx-4">
                 <img className="logo w-12" src="/img/logo_menu.png" alt="logo MMINextLevel" />
             </header>
             <main>
                 <div className="banner h-screen bg-center bg-cover w-full relative">
-                    <h1 className="absolute top-1/3 right-2/4 text-4xl translate-x-1/2">Master après MMI</h1>
-                    <button onClick={scrollDown} aria-label="scroll down" className=" absolute bottom-2 left-1/2 bg-transparent">
+                    <h1 className="absolute top-1/3 right-2/4 text-6xl translate-x-1/2 text-[#5E3472] font-marker">Master après MMI</h1>
+                    <button onClick={scrollDown} aria-label="scroll down" className=" absolute bottom-12 right-1/2 translate-x-1/2 bg-transparent">
                         <img width="100" height="100" src="/img/fleche_bas.svg" alt="flèche vers le bas" />
                     </button>
                 </div>
