@@ -38,7 +38,7 @@ function FormationRow({ formation }) {
                         )}
                     </ul>
                     <div className="flex justify-end">
-                    <NavLink state={{ formation }} className="transition-all bg-[#5E3472] hover:bg-[#E8DEEC] text-white hover:text-[#5E3472] font-bold py-2 px-4 rounded" to={`/formation/${formation.nom}`}>Voir plus</NavLink>
+                    <NavLink state={{ formation }} className="transition-all bg-[#5E3472] hover:bg-[#E8DEEC] text-white hover:text-[#5E3472] font-bold py-2 px-4 rounded" to={`/formation/${formation.nom}/${master.mention}`}>Voir plus</NavLink>
                     </div>
                 </section>
                         
