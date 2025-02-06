@@ -58,7 +58,7 @@ function FormationList() {
                 ?
                 <>
                     {/* Sidebar des filtres */}
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={4} >
                         <FilterForm onFilter={setFilters} />
                     </Grid>
 

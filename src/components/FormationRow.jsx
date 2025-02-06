@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 function FormationRow({ formation }) {
     const formationList = useSelector(selectFormations);
     const masterList = useSelector(selectMasters);
+    console.log(formation)
 
     const borderColor = (parcours) => {
         switch (parcours) {
@@ -25,17 +26,18 @@ function FormationRow({ formation }) {
 
 
             <li  className={`formation mb-6 mx-4 p-4 border-2  flex flex-col items-start lg:flex-row lg:items-center`}>
-                <section className="my-6">
-                    <h3>Mention : {master[0].mention}</h3>
-                    <p>Etablissement : {formation.nom}</p>
+                <section className="my-6 px-2 lg:mx-8 lg:w-full">
+                    <h3 className="text-2xl">Mention {master[0].mention}</h3>
+                    <p className="italic text-xl mb-4"> {formation.nom}</p>
 
-                    <ul>Parcours :
+                    <ul className="mb-4 pt-4 border-t-2 border-dashed border-[#E8DEEC]">Parcours :
                         {formation.masters.parcours.map((parc, id) =>
-                            <li key={id}>{parc.nomParcours}</li>
+                            <li className="list-disc ml-8" key={id}>{parc.nomParcours}</li>
                         )}
                     </ul>
-                    <NavLink state={{ formation }} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" to={`/formation/${formation.nom}`}>Voir plus</NavLink>
-
+                    <div className="flex justify-end">
+                    <NavLink state={{ formation }} className="transition-all bg-[#5E3472] hover:bg-[#E8DEEC] text-white hover:text-[#5E3472] font-bold py-2 px-4 rounded" to={`/formation/${formation.nom}`}>Voir plus</NavLink>
+                    </div>
                 </section>
                         
         </li >

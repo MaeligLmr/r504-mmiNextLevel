@@ -21,15 +21,14 @@ function Formation(){
                 </button>
                 <h3 className="text-xl font-bold text-gray-900">{formation.nom}</h3>
                 <h4 className="text-lg font-semibold text-gray-700">Mention : {master[0].mention}</h4>
-                <a className="font-medium text-blue-600 dark:text-blue-500 hover:underline" href={`${formation.urlSite}`}>{formation.urlSite}</a>
+                <a target="_blank" className="font-medium text-blue-600 dark:text-blue-500 hover:underline" href={`${formation.urlSite}`}>Site web de la formation</a>
                 <ul className="md:grid md:grid-cols-2 md:gap-5">
                     <li>Région : {formation.region}</li>
                     <li>Ville : {formation.ville}</li>
                     {formation.masters.parcours.map((allParcours, id) => (
                         <div key={id}>
                             <p className="underline font-bold text-lg">Parcours : </p>
-                            <p><strong>{allParcours.nomParcours}</strong></p>
-                            <a className="font-medium text-blue-600 dark:text-blue-500 hover:underline" href={`${allParcours.urlParcours}`}>{allParcours.urlParcours}</a>
+                            <a target="_blank" className="font-medium text-blue-600 dark:text-blue-500 hover:underline" href={`${allParcours.urlParcours}`}><strong>{allParcours.nomParcours}</strong></a>
                             <p>Alternance : {allParcours.alternancePossible ? "Possible" : "Impossible"}</p>
                             <p>Distanciel : {allParcours.distanciel ? "Possible" : "Impossible"}</p>
                         </div>
