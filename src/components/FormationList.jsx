@@ -52,7 +52,7 @@ function FormationList() {
 
 
     return (
-        <Grid container spacing={3} sx={{ px: 3, py: 2, mt: 6 }}>
+        <Grid id='formation' container spacing={3} sx={{ px: 3, py: 2, mt: 6 }}>
             {width > 1024
                 ?
                 <>
