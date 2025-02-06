@@ -23,7 +23,7 @@ function Accueil() {
             dispatch(loadFormations());
             dispatch(loadMasters());
         };
-    }, [dispatch]);
+    }, []);
 
 
     return (
