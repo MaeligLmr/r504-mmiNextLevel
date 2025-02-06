@@ -1,4 +1,4 @@
-import { Button, ListItem, Typography } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { startEdit } from "../../features/admin/adminSlice";
 import { selectMasters } from "../../features/admin/adminSelector";
@@ -9,7 +9,7 @@ function Item({ formation }) {
     function displayMasterName(){
         const master = masters.find((master) => master._id == formation.masters._idMaster);
         return (
-            <Typography sx={{ fontSize: "1rem", maxWidth: "500px", overflow:"hidden", whiteSpace:"nowrap", textOverflow: "ellipsis" }}>{master.mention}</Typography>
+            <Typography sx={{ fontSize: "1.25rem", maxWidth: "500px", overflow:"hidden", whiteSpace:"nowrap", textOverflow: "ellipsis" }}>{master.mention}</Typography>
         )
     };
 
@@ -20,11 +20,11 @@ function Item({ formation }) {
     };
 
     return (
-        <ListItem sx={{ display: 'flex', justifyContent: 'space-between', borderBottom: "2px grey solid" }}>
+        <Grid item xs={4} sx={{ display: 'flex', justifyContent: 'space-between', flexDirection: "column", gap: "0.5rem"}}>
             { displayMasterName() }
-            <Typography sx={{ fontSize: "1rem" }}>{formation.nom}</Typography>
-            <Button aria-label="Modifier" variant='contained' color="info" onClick={handleEdit}>Modifier</Button>
-        </ListItem>
+            <Typography sx={{ fontSize: "1rem", fontStyle: "italic" }}>{formation.nom}</Typography>
+            <Button sx={{width: "fit-content", backgroundColor: "#5E3472"}} className="hover:bg-[#EDE9F0] hover:text-black" aria-label="Modifier" variant='contained' onClick={handleEdit}>Modifier</Button>
+        </Grid>
     )
 }
 

@@ -1,19 +1,19 @@
 import { useSelector } from "react-redux";
 import { selectFormations } from "../../features/admin/adminSelector";
-import { List } from "@mui/material";
 import Item from "./Item";
+import { Grid } from "@mui/material";
 
 function FormationsList() {
     const formations = useSelector(selectFormations);
 
     return (
-        <List>
+        <Grid container className="px-6" rowSpacing={5}>
             {
                 formations.map((formation, id) =>
                     <Item key={id} formation={formation}/>
                 )
             }
-        </List>
+        </Grid>
     )
 }
 
