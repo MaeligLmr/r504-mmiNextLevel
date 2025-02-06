@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { selectMasters } from '../features/formation/formationSelector';
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 function FormationRow({ formation }) {
     const masterList = useSelector(selectMasters);
+    const idMaster = formation.masters._idMaster;
+    const master = masterList.find((master) => idMaster === master._id);
 
-    const borderColor = (parcours) => {
+    const getClass = (parcours) => {
         var className = '';
         switch (parcours) {
             case 'crea':
@@ -19,16 +21,13 @@ function FormationRow({ formation }) {
                 className ='border-[#F39200] shadow-[-6px_6px_0_0_#F39200]';
                 break;
             default:
-                className ='#FFFFFFF';
+                className ='border-[#FFFFFF] shadow-[-6px_6px_0_0_#FFFFFF]';
         }
-        console.log(className);
         return className;
     }
-    const idMaster = formation.masters._idMaster;
-    const master = masterList.find((master) => idMaster === master._id);
-    console.log(master);
+
     return (
-           <li className={`formation m-6 p-4 border-2 ${borderColor(master.parcours)} flex flex-col items-start lg:flex-row lg:items-center`}>
+           <li className={`formation m-6 p-4 border-2 ${getClass(master.parcours)} flex flex-col items-start lg:flex-row lg:items-center`}>
                 <section className="my-6 px-2 lg:mx-8 lg:w-full">
                     <h3 className="text-2xl">Mention {master.mention}</h3>
                     <p className="italic text-xl mb-4"> {formation.nom}</p>
