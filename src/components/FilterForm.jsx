@@ -151,6 +151,10 @@ const FilterForm = ({ onFilter }) => {
                     variant="contained"
                     color="primary"
                     fullWidth
+                    sx={{
+                      bgcolor: '#5E3472'
+                    }}
+                    className='transition-all hover:bg-[#E8DEEC] text-white hover:text-[#5E3472]'
                   >
                     Appliquer filtre
                   </Button>
