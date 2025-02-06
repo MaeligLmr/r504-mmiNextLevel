@@ -49,13 +49,13 @@ export const filterIncludes = (property) => (search) => (obj) => {
     }
 
     if (!obj.hasOwnProperty(property)) {
-        return true;
+        return false;
     }
 
     const propertyValue = obj[property];
 
     if (typeof propertyValue !== 'boolean') {
-        return true;
+        return false;
     }
     return propertyValue === search;
 };

@@ -31,7 +31,7 @@ const FilterForm = ({ onFilter }) => {
       activeFilters.push({ function: filterIncludes('region')(values.region), type: "formation" });
     }
     if (values.alternance !== undefined) {
-      activeFilters.push({ function: filterBoolean('alternance')(values.alternance), type: "formation" });
+      activeFilters.push({ function: filterBoolean('alternancePossible')(values.alternance), type: "formation" });
     }
     if (values.distanciel !== undefined) {
       activeFilters.push({ function: filterBoolean('distanciel')(values.distanciel), type: "formation" });

@@ -35,7 +35,9 @@ function FormationList() {
                 );
             }
             else {
-                return filter.function(formation)
+                 
+                
+                  return formation.masters.parcours.some((parcours) => filter.function(parcours))
             }
         });
         return formationList.filter(filterFunc);
