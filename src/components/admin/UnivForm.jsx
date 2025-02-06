@@ -127,9 +127,9 @@ function UnivForm() {
                                                                 {
                                                                     ...parcours.alternancePossible
                                                                         ?
-                                                                        <Switch defaultChecked />
+                                                                        <Switch defaultChecked color='secondary'/>
                                                                         :
-                                                                        <Switch />
+                                                                        <Switch color='secondary'/>
                                                                 }
                                                             }
                                                             label="Alternance" />
@@ -238,8 +238,8 @@ function UnivForm() {
                                 </FieldArray> */}
 
                                 {/* Boutons d'action */}
-                                <Button onClick={handleExit} aria-label='annuler'>Annuler</Button>
-                                <Button type='submit' aria-label='enregistrer'>Enregistrer</Button>
+                                <Button sx={{color: "#5E3472"}} onClick={handleExit} aria-label='annuler'>Annuler</Button>
+                                <Button sx={{color: "#5E3472"}} type='submit' aria-label='enregistrer'>Enregistrer</Button>
                             </Grid2>
                         </form>
                     )}

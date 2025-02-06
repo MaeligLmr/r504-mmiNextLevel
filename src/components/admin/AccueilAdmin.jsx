@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import FormationsList from "./FormationsList";
-import { Typography } from "@mui/material";
 import UnivForm from "./UnivForm";
 import { selectEdit } from "../../features/admin/adminSelector";
 import { loadFormations } from "../../features/formation/formationAsyncAction";
@@ -21,7 +20,9 @@ function AccueilAdmin() {
 
     return(
         <main>
-            <Typography variant="h2" component='h1' sx={{ mx:'auto', mb:'1.25rem'}}>Gestion des formations</Typography>
+            <header className="bg-[#5E3472] p-4 mb-4">
+                <h1 className="text-white text-2xl">Gestion des formations</h1>
+            </header>
         {
             loading
             ?
