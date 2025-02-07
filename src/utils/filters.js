@@ -1,5 +1,3 @@
-//ici les fonctions pour filtrer + le combine filters
-// mention (par includes()) - region (par includes()) - ville (par includes()) - alternance possible (check true) - distanciel (check true)
 export const filterIncludes = (property) => (search) => (obj) => {
     if (typeof property !== 'string' || !obj.hasOwnProperty(property)) {
       throw new Error(`Invalid property: ${property}`);
@@ -34,11 +32,7 @@ export const filterIncludes = (property) => (search) => (obj) => {
     const propertyValue = obj[property];
     if (!Array.isArray(propertyValue)) {
       throw new Error(`The value of property ${property} should be an array.`);
-    }
-  
-    console.log(propertyValue);
-    
-    // Vérifie si le terme de recherche est inclus dans la propriété (insensible à la casse)
+    }    
     return propertyValue.some((item) => item.toLowerCase().includes(search.toLowerCase()));
   };
   
@@ -59,9 +53,6 @@ export const filterIncludes = (property) => (search) => (obj) => {
     }
     return propertyValue === search;
 };
-
-
-
 
 
 export const combineFilters = (...filters) => (object) => {

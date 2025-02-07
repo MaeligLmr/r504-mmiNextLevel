@@ -51,7 +51,6 @@ const FilterForm = ({ onFilter }) => {
       render={({ handleSubmit, form }) => (
         <form onSubmit={handleSubmit} onReset={() => handleReset(form)}>
           <Grid container spacing={3}>
-            {/* Sidebar des filtres */}
             <Grid item xs={12}>
               <Box
                 component="fieldset"
@@ -70,7 +69,6 @@ const FilterForm = ({ onFilter }) => {
                 </Typography>
 
                 <Grid container spacing={2} direction="column">
-                  {/* Recherche */}
                   <Grid item xs={12}>
                     <Field name="keywords">
                       {({ input }) => (
@@ -86,7 +84,6 @@ const FilterForm = ({ onFilter }) => {
                     </Field>
                   </Grid>
 
-                  {/* Mention */}
                   <Grid item xs={12}>
                     <Field name="mention">
                       {({ input }) => (
@@ -102,7 +99,6 @@ const FilterForm = ({ onFilter }) => {
                     </Field>
                   </Grid>
 
-                  {/* Région */}
                   <Grid item xs={12}>
                     <Field name="region">
                       {({ input }) => (
@@ -118,7 +114,6 @@ const FilterForm = ({ onFilter }) => {
                     </Field>
                   </Grid>
 
-                  {/* Alternance */}
                   <Grid item xs={12}>
                     <Field name="alternance" type="checkbox">
                       {({ input }) => (
@@ -127,7 +122,6 @@ const FilterForm = ({ onFilter }) => {
                     </Field>
                   </Grid>
 
-                  {/* Distanciel */}
                   <Grid item xs={12}>
                     <Field name="distanciel" type="checkbox">
                       {({ input }) => (
@@ -142,7 +136,7 @@ const FilterForm = ({ onFilter }) => {
                     mt: 3,
                     display: 'flex',
                     flexDirection: { xs: 'column', md: 'row' },
-                    gap: 2, // Espacement constant
+                    gap: 2, 
                     justifyContent: 'center'
                   }}
                 >
@@ -171,8 +165,6 @@ const FilterForm = ({ onFilter }) => {
 
               </Box>
             </Grid>
-
-            {/* Liste des formations */}
 
           </Grid>
         </form>

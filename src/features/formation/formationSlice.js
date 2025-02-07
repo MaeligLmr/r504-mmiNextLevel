@@ -2,10 +2,7 @@ import {
     createSlice
 } from '@reduxjs/toolkit';
 import {
-    addFormation,
-    deleteFormation,
     loadFormations,
-    updateFormation,
     loadMasters,
 } from './formationAsyncAction';
 

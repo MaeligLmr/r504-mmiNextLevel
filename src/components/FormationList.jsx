@@ -7,23 +7,20 @@ import { filterIncludes, filterIncludesArray } from '../utils/filters';
 import { Grid } from '@mui/material';
 
 function FormationList() {
-    const [filters, setFilters] = useState([]); // State pour les filtres actifs
+    const [filters, setFilters] = useState([]); 
     const formationList = useSelector(selectFormations);
     const masterList = useSelector(selectMasters);
     const [width, setWidth] = useState(window.innerWidth);
 
-    //console.log(formationList);
 
     const filteredFormations = useMemo(() => {
         
         if (filters.length === 0) return formationList;
         const filterFunc = (formation) => filters.every((filter) => {
             if (filter.type === "master") {
-                //filtre les formations en fonction de leur id master qui doit être celui donné dans le filtre
                 
                 return filter.function(formation.masters);
             } else if (filter.type === "masterKeywords") {
-                //filtre les formations en fonction des keyword de la formation rattachée grâce à l'id
                 const filteredMasters = masterList.filter((master) => filter.function(master));
                 console.log(filteredMasters);
                 const filteredMastersId = filteredMasters.map((master) => master._id);
@@ -79,7 +76,6 @@ function FormationList() {
                     <FilterForm onFilter={setFilters} />
                 </Grid>
 
-                {/* Liste en dessous */}
                 <Grid item xs={12}>
                     <ul className="flex flex-col gap-6 mt-3">
                         {filteredFormations.map((formation, id) => (
