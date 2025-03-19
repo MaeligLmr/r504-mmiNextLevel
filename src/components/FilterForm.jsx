@@ -28,7 +28,7 @@ const FilterForm = ({ onFilter }) => {
       activeFilters.push({ function: filterIncludes('_idMaster')(values.mention), type: "master" });
     }
     if (values.region) {
-      activeFilters.push({ function: filterIncludes('region')(values.region), type: "formation" });
+      activeFilters.push({ function: filterIncludes('region')(values.region), type: "region" });
     }
     if (values.alternance !== undefined) {
       activeFilters.push({ function: filterBoolean('alternancePossible')(values.alternance), type: "formation" });

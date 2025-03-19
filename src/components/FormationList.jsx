@@ -31,6 +31,9 @@ function FormationList() {
                     filterIncludes('_idMaster')(masterId)(formation.masters)
                 );
             }
+            else if(filter.type === "region"){
+                return filter.function(formation);
+            }
             else {
                  
                 
